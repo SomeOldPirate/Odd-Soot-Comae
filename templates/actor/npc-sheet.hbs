@@ -1,0 +1,110 @@
+<form class="{{cssClass}} oddsoot-npc" autocomplete="off">
+  
+  <header class="sheet-header">
+    <div class="profile-img">
+       <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+    </div>
+    
+    <div class="header-details">
+      <div class="name-row">
+        <h1><input name="name" type="text" value="{{actor.name}}" placeholder="Subject Name"/></h1>
+      </div>
+      
+      <div class="rank-wrapper">
+        <label>CLASSIFICATION</label>
+        <select class="rank-select" name="system.rank">
+          {{selectOptions ranks selected=system.rank}}
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <div class="sheet-body">
+    
+    <section class="dossier-section">
+      <div class="deco-header">
+        <span>Psychological Profile</span>
+        <a class="generate-btn" title="Randomize Profile"><i class="fas fa-random"></i> Auto-Generate</a>
+      </div>
+      
+      <div class="code-grid">
+        <div class="code-field">
+          <label>Personality</label>
+          <input type="text" name="system.codeblock.personality" value="{{system.codeblock.personality}}" placeholder="Unknown"/>
+        </div>
+        <div class="code-field">
+          <label>Motivation</label>
+          <input type="text" name="system.codeblock.motivation" value="{{system.codeblock.motivation}}" placeholder="Unknown"/>
+        </div>
+        <div class="code-field">
+          <label>Disposition</label>
+          <input type="text" name="system.codeblock.disposition" value="{{system.codeblock.disposition}}" placeholder="Neutral"/>
+        </div>
+        <div class="code-field">
+          <label>Recent Event</label>
+          <input type="text" name="system.codeblock.event" value="{{system.codeblock.event}}" placeholder="None"/>
+        </div>
+      </div>
+    </section>
+
+    <section class="dossier-section">
+      <h2 class="deco-header">Performance Metrics</h2>
+      <div class="npc-stats-container">
+        
+        <div class="npc-col">
+          <h3 class="col-header">Conflict Pools</h3>
+          <div class="stat-list">
+            {{#each system.pools as |pool key|}}
+            <div class="npc-stat-row">
+              <label>{{key}}</label>
+              <div class="dots"></div>
+              <input type="number" name="system.pools.{{key}}.value" value="{{pool.value}}"/>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+
+        <div class="npc-col">
+          <h3 class="col-header">Skill Proficiency</h3>
+          <div class="stat-list">
+            <div class="npc-stat-row rollable">
+              <a class="roll-npc-skill label-link" data-value="{{system.skills.primary}}" data-label="Primary">Primary</a>
+              <div class="dots"></div>
+              <input type="number" name="system.skills.primary" value="{{system.skills.primary}}"/>
+            </div>
+            <div class="npc-stat-row rollable">
+              <a class="roll-npc-skill label-link" data-value="{{system.skills.secondary}}" data-label="Secondary">Secondary</a>
+              <div class="dots"></div>
+              <input type="number" name="system.skills.secondary" value="{{system.skills.secondary}}"/>
+            </div>
+            <div class="npc-stat-row rollable">
+              <a class="roll-npc-skill label-link" data-value="{{system.skills.tertiary}}" data-label="Tertiary">Tertiary</a>
+              <div class="dots"></div>
+              <input type="number" name="system.skills.tertiary" value="{{system.skills.tertiary}}"/>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="dossier-section">
+      <h2 class="deco-header">Known Assets</h2>
+      {{#if weapons}}
+      <ul class="npc-gear-list">
+        {{#each weapons as |item|}}
+        <li class="npc-gear-row roll-npc-weapon clickable" data-item-id="{{item._id}}">
+          <div class="gear-info">
+             <i class="fas fa-crosshairs"></i> <span class="gear-name">{{item.name}}</span>
+          </div>
+          <span class="gear-dmg">{{item.system.damage}}</span>
+        </li>
+        {{/each}}
+      </ul>
+      {{else}}
+      <p class="empty-note">No assets recorded.</p>
+      {{/if}}
+    </section>
+
+  </div>
+</form>

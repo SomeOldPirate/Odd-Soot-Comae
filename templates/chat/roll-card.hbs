@@ -1,0 +1,40 @@
+<div class="oddsoot-chat-card">
+  <div class="card-header">
+    <div class="header-text">
+      <h3 style="color: var(--os-gold) !important; text-shadow: 2px 2px 0px #000;">{{skill}}</h3>
+      <span class="sub-header">{{actor}}</span>
+    </div>
+
+    <div class="actor-icon" style="background-image: url('{{img}}');"></div>
+  </div>
+
+  <div class="card-body">
+    <div class="roll-details">
+      <div class="roll-box primary">
+        <span class="label">ROLL</span>
+        <span class="value {{css}}">{{roll}}</span>
+      </div>
+
+      <div class="vs">vs</div>
+
+      <div class="roll-box secondary">
+        <span class="label">TARGET</span>
+        <span class="value">{{target}}</span>
+      </div>
+    </div>
+
+    <div class="stamp {{css}}">{{result}}</div>
+
+    {{#if damageFormula}}
+    <div class="damage-row" style="text-align:center; margin-top:10px;">
+      <button class="roll-damage-btn" data-formula="{{damageFormula}}">
+        Roll Damage ({{damageFormula}})
+      </button>
+    </div>
+    {{/if}}
+
+    <div class="breakdown">
+      {{breakdown}}
+    </div>
+  </div>
+</div>

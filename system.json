@@ -1,0 +1,33 @@
+{
+  "id": "oddsoot-comae",
+  "title": "Odd Soot (Comae Engine)",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "13"
+  },
+  "esmodules": ["oddsoot.js"],
+  "styles": ["styles/oddsoot.css"],
+
+"manifest": "https://github.com/SomeOldPirate/Odd-Soot-Comae/releases/latest/download/system.json",
+"download": "https://github.com/SomeOldPirate/Odd-Soot-Comae/releases/latest/download/oddsoot-comae.zip",
+
+  "documentTypes": {
+    "Actor": {
+      "character": "Character",
+      "npc": "NPC"
+    },
+    "Item": {
+      "focus": "Focus",
+      "gear": "Gear",
+      "weapon": "Weapon",
+      "armor": "Armor",
+      "peculiarity": "Peculiarity"
+    }
+  },
+  "grid": {
+    "distance": 1,
+    "units": "m",
+    "type": 1
+  }
+}

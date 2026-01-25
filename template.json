@@ -1,0 +1,59 @@
+{
+  "Actor": {
+    "types": ["character", "npc"],
+    "templates": {},
+    "character": {
+      "luck": { "value": 3, "max": 3 },
+      "tags": "",
+      "pools": {
+        "body": { "value": 10, "max": 10 },
+        "int":  { "value": 10, "max": 10 },
+        "pow":  { "value": 10, "max": 10 },
+        "cha":  { "value": 10, "max": 10 }
+      },
+      "skills": {
+        "awareness": { "value": 0, "exp": false },
+        "combat":    { "value": 0, "exp": false },
+        "cunning":   { "value": 0, "exp": false },
+        "knowledge": { "value": 0, "exp": false },
+        "move":      { "value": 0, "exp": false },
+        "science":   { "value": 0, "exp": false },
+        "social":    { "value": 0, "exp": false },
+        "tech":      { "value": 0, "exp": false },
+        "willpower": { "value": 0, "exp": false }
+      },
+      "soot": {
+        "value": 0,
+        "max": 100
+      }
+    }
+  },
+  "Item": {
+    "types": ["focus", "gear", "weapon", "armor", "peculiarity"],
+    "weapon": {
+      "damage": "1d6",
+      "range": "Near",
+      "skillMalus": 0,
+      "equipped": true
+    },
+    "armor": {
+      "ap": 0,
+      "penalty": 0,
+      "equipped": true
+    },
+    "gear": {
+      "quantity": 1,
+      "weight": 0
+    },
+    "focus": {
+      "associatedSkill": "combat",
+      "isWeapon": false,
+      "damageBonus": 0,
+      "range": ""
+    },
+    "peculiarity": {
+      "severity": 1,
+      "active": true
+    }
+  }
+}

@@ -1,0 +1,88 @@
+<form class="{{cssClass}} oddsoot-item-sheet" autocomplete="off">
+  
+  <header class="sheet-header">
+    <img src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+    <div class="header-details">
+      <h1><input name="name" type="text" value="{{item.name}}" placeholder="Item Name"/></h1>
+      <div class="item-type">{{item.type}}</div>
+    </div>
+  </header>
+
+  <div class="item-attributes">
+    
+    {{#if (eq item.type "weapon")}}
+    <div class="form-group">
+      <label>Damage</label>
+      <input type="text" name="system.damage" value="{{system.damage}}" placeholder="e.g. 1d6"/>
+    </div>
+    <div class="form-group">
+      <label>Range</label>
+      <input type="text" name="system.range" value="{{system.range}}" placeholder="Near"/>
+    </div>
+    <div class="form-group">
+      <label>Equipped?</label>
+      <input type="checkbox" name="system.equipped" {{checked system.equipped}}/>
+    </div>
+    {{/if}}
+
+    {{#if (eq item.type "armor")}}
+    <div class="form-group">
+      <label>Armor Points (AP)</label>
+      <input type="number" name="system.ap" value="{{system.ap}}"/>
+    </div>
+    <div class="form-group">
+      <label>Penalty</label>
+      <input type="number" name="system.penalty" value="{{system.penalty}}"/>
+    </div>
+    <div class="form-group">
+      <label>Equipped?</label>
+      <input type="checkbox" name="system.equipped" {{checked system.equipped}}/>
+    </div>
+    {{/if}}
+
+    {{#if (eq item.type "gear")}}
+    <div class="form-group">
+      <label>Quantity</label>
+      <input type="number" name="system.quantity" value="{{system.quantity}}"/>
+    </div>
+    <div class="form-group">
+      <label>Weight</label>
+      <input type="number" name="system.weight" value="{{system.weight}}"/>
+    </div>
+    {{/if}}
+
+    {{#if (eq item.type "focus")}}
+    <div class="form-group">
+      <label>Associated Skill</label>
+      <select name="system.associatedSkill">
+        <option value="awareness" {{#if (eq system.associatedSkill "awareness")}}selected{{/if}}>Awareness</option>
+        <option value="combat" {{#if (eq system.associatedSkill "combat")}}selected{{/if}}>Combat</option>
+        <option value="cunning" {{#if (eq system.associatedSkill "cunning")}}selected{{/if}}>Cunning</option>
+        <option value="knowledge" {{#if (eq system.associatedSkill "knowledge")}}selected{{/if}}>Knowledge</option>
+        <option value="move" {{#if (eq system.associatedSkill "move")}}selected{{/if}}>Move</option>
+        <option value="science" {{#if (eq system.associatedSkill "science")}}selected{{/if}}>Science</option>
+        <option value="social" {{#if (eq system.associatedSkill "social")}}selected{{/if}}>Social</option>
+        <option value="tech" {{#if (eq system.associatedSkill "tech")}}selected{{/if}}>Tech</option>
+        <option value="willpower" {{#if (eq system.associatedSkill "willpower")}}selected{{/if}}>Willpower</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Is Weapon Specialization?</label>
+      <input type="checkbox" name="system.isWeapon" {{checked system.isWeapon}}/>
+    </div>
+    {{#if system.isWeapon}}
+    <div class="form-group">
+      <label>Damage Bonus</label>
+      <input type="number" name="system.damageBonus" value="{{system.damageBonus}}"/>
+    </div>
+    {{/if}}
+    {{/if}}
+
+  </div>
+
+  <h2 class="deco-header">Description</h2>
+  <div class="sheet-body">
+    {{editor system.description target="system.description" button=true owner=owner editable=editable}}
+  </div>
+
+</form>
