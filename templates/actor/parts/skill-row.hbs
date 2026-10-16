@@ -1,0 +1,21 @@
+<li class="oc-skill {{#if modified}}is-modified{{/if}} {{#if locked}}is-locked{{/if}} {{#if top}}is-top{{/if}}" data-skill="{{key}}">
+  <img class="oc-skill__icon" src="systems/oddsoot-comae/assets/icons/{{icon}}.svg" alt="">
+  <a class="oc-skill__name" data-action="rollSkill" data-skill="{{key}}" data-tooltip="{{text}}">{{label}}</a>
+  {{#if locked}}<span class="oc-skill__lock" data-tooltip="COMAE.Magic.lockedHint"><i class="fa-solid fa-lock"></i></span>{{/if}}
+  <input class="oc-skill__value" type="number" name="system.skills.{{key}}.value" value="{{value}}" min="0" {{disabled (not @root.editable)}} aria-label="{{label}}"><span class="oc-skill__pct">%</span>
+  {{#if modified}}<span class="oc-skill__eff" data-tooltip="{{mods}}">{{effective}}%</span>{{/if}}
+  {{#if @root.canImprove}}{{#unless locked}}<a class="oc-skill__improve" data-action="improve" data-skill="{{key}}" data-tooltip="COMAE.Experience.spend"><i class="fa-solid fa-arrow-trend-up"></i></a>{{/unless}}{{/if}}
+  {{#if @root.editable}}{{#unless locked}}<a class="oc-skill__add" data-action="addFocus" data-skill="{{key}}" data-tooltip="COMAE.Focus.addTo"><i class="fa-solid fa-plus"></i></a>{{/unless}}{{/if}}
+  {{#if focuses.length}}
+  <ul class="oc-focuses">
+    {{#each focuses}}
+    <li class="oc-focus {{#if restricted}}is-restricted{{/if}}" data-item-id="{{id}}">
+      <a class="oc-focus__name" data-action="rollItem">//{{name}}</a>
+      <span class="oc-focus__value">{{value}}%</span>
+      {{#if @root.editable}}<a class="oc-focus__ctl" data-action="itemEdit" data-tooltip="COMAE.Sheet.edit"><i class="fa-solid fa-pen-nib"></i></a>
+      <a class="oc-focus__ctl" data-action="itemDelete" data-tooltip="COMAE.Sheet.delete"><i class="fa-solid fa-xmark"></i></a>{{/if}}
+    </li>
+    {{/each}}
+  </ul>
+  {{/if}}
+</li>

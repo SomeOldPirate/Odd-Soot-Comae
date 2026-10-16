@@ -1,0 +1,37 @@
+<div class="oc-form">
+  <div class="form-group"><label>{{localize "COMAE.Item.skill"}}</label><select name="system.skill" {{disabled (not editable)}}>{{selectOptions skills selected=system.skill}}</select></div>
+  {{#if system.isDrive}}
+  <div class="form-group"><label>{{localize "COMAE.Drive.kind"}}</label><select name="system.key" {{disabled (not editable)}}>{{selectOptions driveKinds selected=system.key}}</select></div>
+  <div class="form-group"><label>{{localize "COMAE.Drive.verb"}}</label><input type="text" name="system.verb" value="{{system.verb}}" list="oc-verbs" {{disabled (not editable)}}></div>
+  <div class="form-group"><label>{{localize "COMAE.Drive.target"}}</label><input type="text" name="system.target" value="{{system.target}}" list="oc-drive-targets" {{disabled (not editable)}}></div>
+  <div class="form-group"><label>{{localize "COMAE.Drive.corrupted"}}</label><input type="checkbox" name="system.corrupted" {{checked system.corrupted}} {{disabled (not editable)}}></div>
+  {{#if system.corrupted}}<div class="form-group"><label>{{localize "COMAE.Drive.corruptVerb"}}</label><input type="text" name="system.corruptVerb" value="{{system.corruptVerb}}" {{disabled (not editable)}}></div>{{/if}}
+  <p class="oc-hint oc-item__phrase">{{system.phrase}}</p>
+  <datalist id="oc-verbs">{{#each verbs}}<option value="{{this}}">{{/each}}</datalist>
+  <datalist id="oc-drive-targets">{{#each persons}}<option value="{{this}}">{{/each}}{{#each circles}}<option value="{{this}}">{{/each}}</datalist>
+  {{else if system.isSpell}}
+  <div class="oc-form__row">
+    <div class="form-group"><label>{{localize "COMAE.Magic.cost"}}</label><input type="number" name="system.spell.cost" value="{{system.spell.cost}}" min="0" {{disabled (not editable)}}></div>
+    <div class="form-group"><label>{{localize "COMAE.Magic.complexity"}}</label><span class="oc-form__static">{{system.spell.complexity}}</span></div>
+  </div>
+  <div class="form-group"><label>{{localize "COMAE.Magic.costText"}}</label><input type="text" name="system.spell.costText" value="{{system.spell.costText}}" placeholder="{{localize 'COMAE.Magic.costTextHint'}}" {{disabled (not editable)}}></div>
+  <div class="oc-form__row">
+    <div class="form-group"><label>{{localize "COMAE.Magic.range"}}</label><input type="text" name="system.spell.range" value="{{system.spell.range}}" {{disabled (not editable)}}></div>
+    <div class="form-group"><label>{{localize "COMAE.Magic.duration"}}</label><input type="text" name="system.spell.duration" value="{{system.spell.duration}}" {{disabled (not editable)}}></div>
+  </div>
+  <div class="form-group"><label>{{localize "COMAE.Magic.resistLabel"}}</label><select name="system.spell.resist" {{disabled (not editable)}}>{{selectOptions resists selected=system.spell.resist}}</select></div>
+  <div class="oc-form__row">
+    <div class="form-group"><label>{{localize "COMAE.Magic.effect"}}</label><select name="system.spell.effect" {{disabled (not editable)}}>{{selectOptions spellEffects selected=system.spell.effect}}</select></div>
+    <div class="form-group"><label>{{localize "COMAE.Magic.formula"}}</label><input type="text" name="system.spell.formula" value="{{system.spell.formula}}" {{disabled (not editable)}}></div>
+  </div>
+  <div class="oc-form__row">
+    <label class="oc-check"><input type="checkbox" name="system.spell.scalable" {{checked system.spell.scalable}} {{disabled (not editable)}}> {{localize "COMAE.Magic.scalable"}}</label>
+    <label class="oc-check"><input type="checkbox" name="system.spell.secret" {{checked system.spell.secret}} {{disabled (not editable)}}> {{localize "COMAE.Magic.secret"}}</label>
+  </div>
+  <div class="form-group"><label>{{localize "COMAE.Item.source"}}</label><input type="text" name="system.source" value="{{system.source}}" {{disabled (not editable)}}></div>
+  {{else}}
+  <div class="form-group"><label>{{localize "COMAE.Focus.listed"}}</label><select name="system.key" {{disabled (not editable)}}>{{selectOptions focusKeys selected=system.key}}</select></div>
+  <label class="oc-check" data-tooltip="COMAE.Focus.restrictedHint"><input type="checkbox" name="system.restricted" {{checked system.restricted}} {{disabled (not editable)}}> {{localize "COMAE.Focus.restricted"}}</label>
+  {{#if owned}}<p class="oc-hint">{{localize "COMAE.Focus.valueNow" n=system.value}}</p>{{/if}}
+  {{/if}}
+</div>

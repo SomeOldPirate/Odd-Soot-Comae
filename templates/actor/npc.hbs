@@ -1,0 +1,99 @@
+<div class="oc-npccard">
+  <div class="oc-dossier__soot" aria-hidden="true"></div>
+  <header class="oc-npccard__head">
+    <figure class="oc-photo oc-photo--small">
+      <img src="{{actor.img}}" alt="{{actor.name}}" data-edit="img" data-action="editImage">
+    </figure>
+    <div class="oc-npccard__ident">
+      <input class="oc-dossier__name" type="text" name="name" value="{{actor.name}}" {{disabled (not editable)}}>
+      <div class="oc-dossier__fields">
+        <label class="oc-field"><span>{{localize "COMAE.Npc.role"}}</span><input class="oc-typed" type="text" name="system.details.role" value="{{system.details.role}}" {{disabled (not editable)}}></label>
+        <label class="oc-field"><span>{{localize "COMAE.Sheet.species"}}</span><input class="oc-typed" type="text" name="system.details.species" value="{{system.details.species}}" {{disabled (not editable)}}></label>
+        <label class="oc-field oc-field--tier" data-tooltip="{{tierHint}}"><span>{{localize "COMAE.Npc.tier"}}</span>
+          <span class="oc-field__line"><select name="system.tier" {{disabled (not editable)}}>{{selectOptions tiers selected=system.tier}}</select>
+          {{#if editable}}<a class="oc-mini" data-action="applyTier" data-tooltip="COMAE.Npc.applyTier"><i class="fa-solid fa-layer-group"></i></a>{{/if}}</span></label>
+      </div>
+    </div>
+  </header>
+
+  <section class="oc-pools oc-pools--npc">
+    {{#each pools}}
+    <div class="oc-pool oc-pool--{{key}} {{#if pushed}}is-pushed{{/if}} {{#if comae}}is-comae{{/if}}" data-tooltip="{{label}}: {{use}}">
+      <span class="oc-pool__abbr">{{abbr}}</span>
+      <span class="oc-pool__nums">
+        <input class="oc-pool__value" type="number" name="system.pools.{{key}}.value" value="{{value}}" {{disabled (not ../editable)}}>
+        <span class="oc-pool__slash">/</span>
+        <input class="oc-pool__max" type="number" name="system.pools.{{key}}.max" value="{{base}}" min="0" {{disabled (not ../editable)}}>
+      </span>
+      <span class="oc-pool__pips">{{#each pips}}<i class="{{#if on}}on{{/if}} {{#if neg}}neg{{/if}}"></i>{{/each}}</span>
+    </div>
+    {{/each}}
+    {{#if editable}}<div class="oc-pools__ctl"><a class="oc-mini" data-action="hazard" data-tooltip="COMAE.Damage.hazardHint"><i class="fa-solid fa-house-crack"></i></a><a class="oc-mini" data-action="sleep" data-tooltip="COMAE.Rest.hint"><i class="fa-solid fa-bed"></i></a></div>{{/if}}
+  </section>
+
+  <div class="oc-npc__body">
+    <div class="oc-npccard__grid">
+      <div class="oc-panel">
+        <h3 class="oc-panel__title">{{localize "COMAE.Sheet.skills"}} <small>{{localize "COMAE.Npc.skillsHint" tier=suggestedTier}}</small></h3>
+        <ul class="oc-skills oc-skills--npc">{{#each skills}}{{> "systems/oddsoot-comae/templates/actor/parts/skill-row.hbs"}}{{/each}}
+          {{#unless magic.locked}}{{#with magic}}{{> "systems/oddsoot-comae/templates/actor/parts/skill-row.hbs"}}{{/with}}{{/unless}}</ul>
+      </div>
+
+      <div class="oc-panel oc-codeblock">
+        <h3 class="oc-panel__title">{{localize "COMAE.Npc.codeBlock"}}
+          {{#if editable}}
+          {{#if canRollCodeBlock}}
+          <a class="oc-panel__add" data-action="rollCodeBlock" data-tooltip="COMAE.Npc.rollCodeBlock"><i class="fa-solid fa-dice-d20"></i></a>
+          <a class="oc-panel__add" data-action="rollCodeBlock" data-antagonist="1" data-tooltip="COMAE.Npc.rollAntagonist"><i class="fa-solid fa-mask"></i></a>
+          {{/if}}
+          {{/if}}
+        </h3>
+        <code class="oc-codeblock__code">
+          <label><span>personality:</span><input type="text" name="system.codeBlock.personality" value="{{system.codeBlock.personality}}" {{disabled (not editable)}}></label>
+          <label><span>disposition:</span><select name="system.codeBlock.disposition" {{disabled (not editable)}}>{{selectOptions dispositions selected=system.codeBlock.disposition}}</select></label>
+          <label><span>motivation:</span><input type="text" name="system.codeBlock.motivation" value="{{system.codeBlock.motivation}}" {{disabled (not editable)}}></label>
+          <label><span>recent_event:</span><input type="text" name="system.codeBlock.event" value="{{system.codeBlock.event}}" {{disabled (not editable)}}></label>
+        </code>
+        <p class="oc-hint">{{localize "COMAE.Npc.dispositionHint"}}</p>
+
+        <h3 class="oc-panel__title">{{localize "COMAE.Tag.plural"}}
+          {{#if editable}}<a class="oc-panel__add" data-action="addTag" data-tooltip="COMAE.Tag.add"><i class="fa-solid fa-plus"></i></a>{{/if}}</h3>
+        <div class="oc-chips">
+          {{#each tags}}<span class="oc-chiptag" data-item-id="{{id}}"><a data-action="itemEdit" data-tooltip="{{text}}">{{label}}</a>{{#if @root.editable}} <a data-action="itemDelete"><i class="fa-solid fa-xmark"></i></a>{{/if}}</span>{{else}}<span class="oc-empty">—</span>{{/each}}
+        </div>
+
+        {{#if spells.length}}
+        <h3 class="oc-panel__title">{{localize "COMAE.Magic.spells"}}</h3>
+        <ul class="oc-gearlist">{{#each spells}}<li data-item-id="{{id}}"><img src="{{img}}" alt=""><a class="oc-gearlist__name" data-action="rollItem">{{name}} <small>({{sp.cost}} POW)</small></a><span>{{value}}%</span>{{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-xmark"></i></a>{{/if}}</li>{{/each}}</ul>
+        {{/if}}
+
+        <h3 class="oc-panel__title">{{localize "COMAE.Gear.weapons"}}
+          {{#if editable}}<a class="oc-panel__add" data-action="itemCreate" data-type="weapon" data-tooltip="COMAE.Gear.addWeapon"><i class="fa-solid fa-plus"></i></a>{{/if}}</h3>
+        <ul class="oc-gearlist">
+          {{#each weapons}}<li data-item-id="{{id}}"><img src="{{img}}" alt=""><a class="oc-gearlist__name" data-action="rollItem">{{name}}</a>
+            <a class="oc-table__dmg" data-action="weaponDamage">{{system.formula}}</a>{{#if @root.editable}}<a data-action="itemEdit"><i class="fa-solid fa-pen-nib"></i></a><a data-action="itemDelete"><i class="fa-solid fa-xmark"></i></a>{{/if}}</li>
+          {{else}}<li class="oc-empty">—</li>{{/each}}
+          {{#each armour}}<li data-item-id="{{id}}"><img src="{{img}}" alt=""><a class="oc-gearlist__name" data-action="itemEdit">{{name}} <small>AP {{system.ap}}</small></a><a data-action="equip"><i class="fa-solid {{#if system.equipped}}fa-shirt{{else}}fa-box{{/if}}"></i></a></li>{{/each}}
+        </ul>
+      </div>
+    </div>
+
+    <div class="oc-panel oc-npcsoot">
+      <h3 class="oc-panel__title">{{localize "COMAE.Soot.title"}}
+        {{#if editable}}<a class="oc-panel__add" data-action="infect" data-tooltip="COMAE.Soot.npcTitle"><i class="fa-solid fa-virus"></i></a>
+        <a class="oc-panel__add" data-action="itemCreate" data-type="peculiarity" data-tooltip="COMAE.Peculiarity.add"><i class="fa-solid fa-plus"></i></a>{{/if}}</h3>
+      <div class="oc-npcsoot__row">
+        <label>{{localize "COMAE.Soot.title"}} <input type="number" name="system.soot.value" value="{{system.soot.value}}" min="0" max="100" {{disabled (not editable)}}>%</label>
+        <label>{{localize "COMAE.Soot.phase"}} <select name="system.soot.phase" {{disabled (not editable)}}>{{selectOptions phases selected=system.soot.phase}}</select></label>
+        <label class="oc-check"><input type="checkbox" name="system.soot.infected" {{checked system.soot.infected}} {{disabled (not editable)}}> {{localize "COMAE.Soot.infectedBox"}}</label>
+      </div>
+      {{#if phaseRecipe}}<p class="oc-hint">{{phaseRecipe}}</p>{{/if}}
+      <div class="oc-pecs">{{#each peculiarities}}{{> "systems/oddsoot-comae/templates/actor/parts/peculiarity.hbs"}}{{/each}}</div>
+    </div>
+
+    <div class="oc-panel oc-prose">
+      <h3 class="oc-panel__title">{{localize "COMAE.Sheet.notes"}}</h3>
+      {{formInput fields.notes value=system.notes enriched=enrichedNotes toggled=true editable=editable name="system.notes"}}
+    </div>
+  </div>
+</div>

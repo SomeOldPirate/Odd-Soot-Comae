@@ -1,0 +1,65 @@
+<section class="tab oc-tab oc-tab--bonds {{tab.cssClass}}" data-tab="bonds" data-group="primary">
+  <div class="oc-panel">
+    <h3 class="oc-panel__title">{{localize "COMAE.Tag.plural"}}
+      {{#if editable}}
+      <a class="oc-panel__add" data-action="addTag" data-random="1" data-tooltip="COMAE.Tag.rollHint"><i class="fa-solid fa-dice-d20"></i></a>
+      <a class="oc-panel__add" data-action="addTag" data-tooltip="COMAE.Tag.add"><i class="fa-solid fa-plus"></i></a>
+      {{/if}}
+    </h3>
+    <div class="oc-tags">
+      {{#each tags}}
+      <div class="oc-tagcard oc-tagcard--{{key}}" data-item-id="{{id}}">
+        <span class="oc-tagcard__hole" aria-hidden="true"></span>
+        <div class="oc-tagcard__body">
+          <a class="oc-tagcard__name" data-action="itemEdit" data-tooltip="{{text}}">{{label}}</a>
+          <p class="oc-tagcard__text">{{text}}</p>
+          {{#if callable}}<a class="oc-button oc-button--small" data-action="callTag"><i class="fa-solid fa-phone"></i> {{localize "COMAE.Tag.call"}}{{#if chance}} ({{chance}}%){{/if}}</a>{{/if}}
+          {{#if gmCall}}<a class="oc-button oc-button--small" data-action="callTag"><i class="fa-solid fa-bullhorn"></i> {{localize "COMAE.Tag.call"}}</a>{{/if}}
+        </div>
+        {{#if @root.editable}}<a class="oc-tagcard__del" data-action="itemDelete" data-tooltip="COMAE.Sheet.delete"><i class="fa-solid fa-xmark"></i></a>{{/if}}
+      </div>
+      {{else}}
+      <p class="oc-empty">{{localize "COMAE.Tag.none"}}</p>
+      {{/each}}
+    </div>
+  </div>
+
+  <div class="oc-panel">
+    <h3 class="oc-panel__title">{{localize "COMAE.Drive.plural"}} <small>{{localize "COMAE.Drive.hint"}}</small>
+      {{#if editable}}
+      {{#if canRollDrive}}
+      <a class="oc-panel__add" data-action="rollDrive" data-kind="person" data-tooltip="COMAE.Drive.rollPerson"><i class="fa-solid fa-user"></i></a>
+      <a class="oc-panel__add" data-action="rollDrive" data-kind="circle" data-tooltip="COMAE.Drive.rollCircle"><i class="fa-solid fa-people-group"></i></a>
+      {{/if}}
+      <a class="oc-panel__add" data-action="itemCreate" data-type="drive" data-kind="person" data-tooltip="COMAE.Drive.add"><i class="fa-solid fa-plus"></i></a>
+      {{/if}}
+    </h3>
+    <div class="oc-drives">
+      {{#each drives}}
+      <div class="oc-drive oc-drive--{{kind}} {{#if corrupted}}is-corrupted{{/if}}" data-item-id="{{id}}">
+        <span class="oc-drive__kind">{{kindLabel}}</span>
+        <a class="oc-drive__phrase" data-action="rollItem" data-tooltip="COMAE.Drive.rollHint">{{phrase}}</a>
+        <span class="oc-drive__value">{{value}}%</span>
+        {{#if corrupted}}<span class="oc-drive__stamp">{{localize "COMAE.Drive.corrupted"}}</span>{{/if}}
+        {{#if @root.editable}}
+        <span class="oc-drive__ctl">
+          <a data-action="corrupt" data-tooltip="COMAE.Drive.corruptHint"><i class="fa-solid fa-heart-crack"></i></a>
+          <a data-action="itemEdit" data-tooltip="COMAE.Sheet.edit"><i class="fa-solid fa-pen-nib"></i></a>
+          <a data-action="itemDelete" data-tooltip="COMAE.Sheet.delete"><i class="fa-solid fa-xmark"></i></a>
+        </span>
+        {{/if}}
+      </div>
+      {{else}}
+      <p class="oc-empty">{{localize "COMAE.Drive.none"}}</p>
+      {{/each}}
+    </div>
+    <label class="oc-field oc-field--wide"><span>{{localize "COMAE.Drive.secondCircle"}}</span>
+      <input class="oc-typed" type="text" name="system.details.circleNote" value="{{system.details.circleNote}}" placeholder="{{localize 'COMAE.Drive.secondCircleHint'}}" {{disabled (not editable)}}></label>
+  </div>
+
+  <div class="oc-panel oc-panel--row">
+    {{#if editable}}
+    <a class="oc-button oc-button--ghost" data-action="endScenario" data-tooltip="COMAE.Scenario.hint"><i class="fa-solid fa-flag-checkered"></i> {{localize "COMAE.Scenario.end"}}</a>
+    {{/if}}
+  </div>
+</section>

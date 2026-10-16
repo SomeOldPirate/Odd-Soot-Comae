@@ -1,0 +1,80 @@
+<header class="oc-dossier">
+  <div class="oc-dossier__soot" aria-hidden="true"></div>
+
+  <div class="oc-dossier__top">
+    <figure class="oc-photo">
+      <img src="{{actor.img}}" alt="{{actor.name}}" data-edit="img" data-action="editImage" data-tooltip="COMAE.Sheet.portrait">
+      <span class="oc-photo__clip" aria-hidden="true"></span>
+    </figure>
+
+    <div class="oc-dossier__ident">
+      <div class="oc-dossier__kicker">
+        <span>{{localize "COMAE.Sheet.caseFile"}}</span>
+        <span class="oc-dossier__rule"></span>
+        <span>{{localize "COMAE.Sheet.comaeSpace"}}</span>
+      </div>
+      <input class="oc-dossier__name" type="text" name="name" value="{{actor.name}}" placeholder="{{localize 'COMAE.Sheet.name'}}" {{disabled (not editable)}}>
+      <input class="oc-typed oc-dossier__concept" type="text" name="system.details.concept" value="{{system.details.concept}}" placeholder="{{localize 'COMAE.Sheet.conceptHint'}}" {{disabled (not editable)}}>
+      <div class="oc-dossier__fields">
+        <label class="oc-field"><span>{{localize "COMAE.Sheet.career"}}</span>
+          <input class="oc-typed" type="text" name="system.details.career" value="{{system.details.career}}" list="oc-careers-{{actor.id}}" {{disabled (not editable)}}></label>
+        <label class="oc-field"><span>{{localize "COMAE.Sheet.species"}}</span>
+          <input class="oc-typed" type="text" name="system.details.species" value="{{system.details.species}}" {{disabled (not editable)}}></label>
+        <label class="oc-field"><span>{{localize "COMAE.Sheet.homeworld"}}</span>
+          <input class="oc-typed" type="text" name="system.details.homeworld" value="{{system.details.homeworld}}" {{disabled (not editable)}}></label>
+        <label class="oc-field oc-field--short"><span>{{localize "COMAE.Sheet.age"}}</span>
+          <input class="oc-typed" type="text" name="system.details.age" value="{{system.details.age}}" {{disabled (not editable)}}></label>
+      </div>
+      <datalist id="oc-careers-{{actor.id}}">{{#each careers}}<option value="{{this}}">{{/each}}</datalist>
+    </div>
+
+    <aside class="oc-sootseal {{#if soot.infected}}is-infected{{/if}} {{#if soot.lost}}is-lost{{/if}}" data-tooltip="{{soot.phaseLabel}}">
+      <div class="oc-sootseal__blot" style="--fill: {{soot.value}}"></div>
+      <div class="oc-sootseal__text">
+        <span class="oc-sootseal__label">{{localize "COMAE.Soot.title"}}</span>
+        <span class="oc-sootseal__value">{{soot.value}}<small>%</small></span>
+        <span class="oc-sootseal__state">{{#if soot.infected}}{{localize "COMAE.Soot.infectedShort"}}{{else}}{{localize "COMAE.Soot.clean"}}{{/if}}</span>
+      </div>
+    </aside>
+  </div>
+
+  <section class="oc-pools" aria-label="{{localize 'COMAE.Sheet.pools'}}">
+    {{#each pools}}
+    <div class="oc-pool oc-pool--{{key}} {{#if pushed}}is-pushed{{/if}} {{#if comae}}is-comae{{/if}}" data-tooltip="{{label}}: {{use}}">
+      <span class="oc-pool__abbr">{{abbr}}</span>
+      <span class="oc-pool__nums">
+        <input class="oc-pool__value" type="number" name="system.pools.{{key}}.value" value="{{value}}" {{disabled (not ../editable)}} aria-label="{{abbr}}">
+        <span class="oc-pool__slash">/</span>
+        <input class="oc-pool__max" type="number" name="system.pools.{{key}}.max" value="{{base}}" min="0" {{disabled (not ../editable)}} aria-label="{{abbr}} max">
+      </span>
+      <span class="oc-pool__pips">{{#each pips}}<i class="{{#if on}}on{{/if}} {{#if neg}}neg{{/if}}"></i>{{/each}}</span>
+      {{#if comae}}<span class="oc-pool__stamp">{{localize "COMAE.Sheet.comaeState"}}</span>
+      {{else if pushed}}<span class="oc-pool__stamp">{{localize "COMAE.Sheet.pushed"}}</span>
+      {{else if fatigued}}<span class="oc-pool__note">{{localize "COMAE.Sheet.fatigued" n=max}}</span>{{/if}}
+    </div>
+    {{/each}}
+  </section>
+
+  <section class="oc-strip">
+    <div class="oc-luck" data-tooltip="{{localize 'COMAE.Luck.tooltip'}}">
+      <span class="oc-strip__label">{{localize "COMAE.Luck.title"}}</span>
+      <span class="oc-luck__coins">{{#each luck.coins}}<a class="oc-coin is-{{state}}" data-action="luck" data-state="{{state}}"><i class="fa-solid fa-clover"></i></a>{{/each}}</span>
+      {{#if editable}}
+      <span class="oc-luck__uses">{{#each luckUses}}<a data-action="luckUse" data-use="{{key}}" data-tooltip="<b>{{label}}</b><br>{{text}}"><i class="fa-solid {{#if (eq key 'reduce')}}fa-shield-heart{{else if (eq key 'appear')}}fa-user-clock{{else if (eq key 'found')}}fa-key{{else}}fa-mug-hot{{/if}}"></i></a>{{/each}}</span>
+      {{/if}}
+    </div>
+    <div class="oc-stat" data-tooltip="COMAE.Sheet.armourHint"><span class="oc-strip__label">{{localize "COMAE.Sheet.armour"}}</span><span class="oc-stat__value">{{armourText}}</span></div>
+    <div class="oc-stat" data-tooltip="COMAE.Experience.rollsHint"><span class="oc-strip__label">{{localize "COMAE.Experience.rolls"}}</span>
+      <span class="oc-stat__value"><input type="number" name="system.xp.rolls" value="{{xp.rolls}}" min="0" {{disabled (not editable)}}></span></div>
+    <div class="oc-stat" data-tooltip="COMAE.Experience.bankedHint"><span class="oc-strip__label">{{localize "COMAE.Experience.banked"}}</span>
+      <span class="oc-stat__value"><input type="number" name="system.xp.banked" value="{{xp.banked}}" min="0" {{disabled (not editable)}}></span></div>
+    <div class="oc-stat oc-stat--state {{#if system.pushed}}is-hurt{{/if}}"><span class="oc-strip__label">{{localize "COMAE.Sheet.condition"}}</span>
+      <span class="oc-stat__value oc-stat__value--text">{{#if system.comae}}{{localize "COMAE.Sheet.comaeState"}}{{else if system.pushed}}{{localize "COMAE.Sheet.pushedAll"}}{{else}}{{localize "COMAE.Sheet.steady"}}{{/if}}</span></div>
+    {{#if editable}}
+    <div class="oc-strip__actions">
+      <a class="oc-mini" data-action="hazard" data-tooltip="COMAE.Damage.hazardHint"><i class="fa-solid fa-house-crack"></i></a>
+      <a class="oc-mini" data-action="sleep" data-tooltip="COMAE.Rest.hint"><i class="fa-solid fa-bed"></i></a>
+    </div>
+    {{/if}}
+  </section>
+</header>

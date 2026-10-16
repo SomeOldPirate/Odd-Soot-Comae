@@ -1,0 +1,39 @@
+<section class="tab oc-tab oc-tab--soot {{tab.cssClass}}" data-tab="soot" data-group="primary">
+  <div class="oc-sootpanel {{#if soot.infected}}is-infected{{/if}} {{#if soot.lost}}is-lost{{/if}}">
+    <div class="oc-sootpanel__gauge">
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <circle class="oc-sootpanel__track" cx="60" cy="60" r="52"/>
+        <circle class="oc-sootpanel__arc" cx="60" cy="60" r="52" pathLength="100" stroke-dasharray="{{soot.value}} 100"/>
+      </svg>
+      <div class="oc-sootpanel__num"><input type="number" name="system.soot.value" value="{{soot.value}}" min="0" max="100" {{disabled (not editable)}}><small>%</small></div>
+    </div>
+    <div class="oc-sootpanel__text">
+      <h3 class="oc-sootpanel__title">{{localize "COMAE.Soot.title"}}</h3>
+      <p class="oc-sootpanel__phase">{{#if soot.infected}}{{soot.phaseLabel}}{{else}}{{localize "COMAE.Soot.uninfected"}}{{/if}}</p>
+      <p class="oc-hint">{{#if soot.infected}}{{localize "COMAE.Soot.infectedHelp"}}{{else}}{{localize "COMAE.Soot.cleanHelp"}}{{/if}}</p>
+      <div class="oc-sootpanel__facts">
+        <label class="oc-check"><input type="checkbox" name="system.soot.infected" {{checked soot.infected}} {{disabled (not editable)}}> {{localize "COMAE.Soot.infectedBox"}}</label>
+        <label class="oc-sootpanel__kills">{{localize "COMAE.Soot.kills"}} <input type="number" name="system.soot.kills" value="{{soot.kills}}" min="0" {{disabled (not editable)}}></label>
+      </div>
+      {{#if editable}}
+      <div class="oc-sootpanel__actions">
+        <a class="oc-button oc-button--dark" data-action="recordKill" data-tooltip="COMAE.Soot.killHint"><i class="fa-solid fa-skull"></i> {{localize "COMAE.Soot.kill"}}</a>
+        {{#if soot.infected}}<a class="oc-button oc-button--small" data-action="peculiarityTable" data-tooltip="COMAE.Soot.tableHint"><i class="fa-solid fa-table-list"></i> {{localize "COMAE.Soot.table"}}</a>{{/if}}
+      </div>
+      {{/if}}
+    </div>
+  </div>
+
+  <div class="oc-panel">
+    <h3 class="oc-panel__title">{{localize "COMAE.Peculiarity.plural"}}
+      {{#if editable}}
+      <a class="oc-panel__add" data-action="sessionRoll" data-tooltip="COMAE.Peculiarity.sessionHint"><i class="fa-solid fa-sun"></i></a>
+      <a class="oc-panel__add" data-action="itemCreate" data-type="peculiarity" data-tooltip="COMAE.Peculiarity.add"><i class="fa-solid fa-plus"></i></a>
+      {{/if}}
+    </h3>
+    <div class="oc-pecs">
+      {{#each peculiarities}}{{> "systems/oddsoot-comae/templates/actor/parts/peculiarity.hbs"}}{{else}}<p class="oc-empty">{{localize "COMAE.Peculiarity.none"}}</p>{{/each}}
+    </div>
+    <p class="oc-hint">{{localize "COMAE.Peculiarity.help"}}</p>
+  </div>
+</section>

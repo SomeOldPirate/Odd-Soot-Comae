@@ -1,0 +1,13 @@
+<div class="oc-form">
+  <div class="oc-form__row">
+    <div class="form-group"><label>{{localize "COMAE.Peculiarity.kind"}}</label><select name="system.kind" {{disabled (not editable)}}>{{selectOptions peculiarityKinds selected=system.kind}}</select></div>
+    <div class="form-group"><label>{{localize "COMAE.Peculiarity.value"}}</label><input type="number" name="system.value" value="{{system.value}}" min="0" max="100" step="10" {{disabled (not editable)}}></div>
+  </div>
+  <div class="form-group"><label>{{localize "COMAE.Peculiarity.when"}}</label><select name="system.mode" {{disabled (not editable)}}>{{selectOptions peculiarityModes selected=system.mode}}</select></div>
+  <div class="form-group"><label>{{localize "COMAE.Peculiarity.lowers"}}</label><select name="system.affects" {{disabled (not editable)}}>{{selectOptions peculiarityAffects selected=system.affects}}</select></div>
+  <div class="form-group"><label>{{localize "COMAE.Peculiarity.spec"}}</label><input type="text" name="system.spec" value="{{system.spec}}" placeholder="{{localize 'COMAE.Peculiarity.specHint'}}" {{disabled (not editable)}}></div>
+  <div class="oc-form__row">
+    <label class="oc-check"><input type="checkbox" name="system.showing" {{checked system.showing}} {{disabled (not editable)}}> {{localize "COMAE.Peculiarity.showing"}}</label>
+    <label class="oc-check"><input type="checkbox" name="system.npc" {{checked system.npc}} {{disabled (not editable)}}> {{localize "COMAE.Peculiarity.npcOnly"}}</label>
+  </div>
+</div>

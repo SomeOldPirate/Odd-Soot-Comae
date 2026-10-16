@@ -1,0 +1,16 @@
+<div class="oc-form">
+  <p class="oc-hint">{{localize "COMAE.Career.help"}}</p>
+  <ol class="oc-careerskills">
+    {{#each careerSkills}}
+    <li>
+      <span class="oc-careerskills__slot">{{slot}}%*</span>
+      <select data-career="{{i}}:skill" {{disabled (not @root.editable)}}>{{selectOptions @root.skills selected=skill}}</select>
+      <input type="text" data-career="{{i}}:focus" value="{{focus}}" placeholder="//Focus" {{disabled (not @root.editable)}}>
+      {{#if @root.editable}}<a data-action="removeCareerSkill" data-index="{{i}}"><i class="fa-solid fa-xmark"></i></a>{{/if}}
+    </li>
+    {{/each}}
+  </ol>
+  {{#if (and editable (lt careerSkills.length 3))}}<a class="oc-button oc-button--small" data-action="addCareerSkill"><i class="fa-solid fa-plus"></i> {{localize "COMAE.Career.addSkill"}}</a>{{/if}}
+  <div class="form-group"><label>{{localize "COMAE.Tag.plural"}}</label><input type="text" data-career-tags value="{{careerTags}}" placeholder="Contact, Pass" {{disabled (not editable)}}></div>
+  <div class="form-group"><label>{{localize "COMAE.Career.kit"}}</label><input type="text" name="system.kit" value="{{system.kit}}" {{disabled (not editable)}}></div>
+</div>

@@ -1,0 +1,19 @@
+<div class="oc-pec {{#if system.showing}}is-showing{{/if}} {{#if boosted}}is-defied{{/if}}" data-item-id="{{id}}">
+  <div class="oc-pec__head">
+    <a class="oc-pec__name" data-action="itemEdit">{{name}}</a>
+    <span class="oc-pec__value">{{#if boosted}}<s>{{system.value}}</s> {{/if}}{{effective}}<small>%</small></span>
+  </div>
+  <div class="oc-pec__meta">
+    <span><i class="fa-regular fa-clock"></i> {{modeLabel}}</span>
+    <span><i class="fa-solid fa-arrow-down-wide-short"></i> {{affectsLabel}}</span>
+  </div>
+  {{#if @root.editable}}
+  <div class="oc-pec__actions">
+    <a class="oc-chip {{#if system.showing}}is-on{{/if}}" data-action="showing" data-tooltip="COMAE.Peculiarity.showingHint"><i class="fa-solid fa-lightbulb"></i> {{#if system.showing}}{{localize "COMAE.Peculiarity.showing"}}{{else}}{{localize "COMAE.Peculiarity.dormant"}}{{/if}}</a>
+    {{#unless always}}<a class="oc-button oc-button--small" data-action="tempt" data-tooltip="COMAE.Peculiarity.temptHint"><i class="fa-solid fa-diamond"></i> {{localize "COMAE.Peculiarity.tempted"}}</a>
+    <a class="oc-button oc-button--small" data-action="defy" data-tooltip="COMAE.Peculiarity.defyHint"><i class="fa-solid fa-hand"></i> {{localize "COMAE.Peculiarity.defy"}}</a>{{/unless}}
+    <a class="oc-button oc-button--small" data-action="treat" data-tooltip="COMAE.Peculiarity.treatHint"><i class="fa-solid fa-stethoscope"></i> {{localize "COMAE.Peculiarity.treat"}}</a>
+    <a class="oc-mini" data-action="itemDelete" data-tooltip="COMAE.Sheet.delete"><i class="fa-solid fa-xmark"></i></a>
+  </div>
+  {{/if}}
+</div>

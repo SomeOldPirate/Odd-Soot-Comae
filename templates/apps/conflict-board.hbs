@@ -1,0 +1,90 @@
+<div class="oc-board__frame">
+  <header class="oc-board__head">
+    <span class="oc-board__kicker">{{localize "COMAE.Conflict.kicker"}}</span>
+    <h2 class="oc-board__title">{{conflict.name}}</h2>
+    <div class="oc-board__terms">
+      <span><i class="fa-solid fa-rotate"></i> {{localize "COMAE.Conflict.roundN" n=round}}{{#if conflict.round}} · {{conflict.round}}{{/if}}</span>
+      {{#if conflict.skills}}<span><i class="fa-solid fa-list-check"></i> {{conflict.skills}}</span>{{/if}}
+      <span><i class="fa-solid fa-droplet"></i> {{poolText}}</span>
+      <span><i class="fa-solid fa-burst"></i> {{conflict.damage}} — {{modeText}}</span>
+    </div>
+    {{#if conflict.note}}<p class="oc-board__note">{{conflict.note}}</p>{{/if}}
+  </header>
+
+  <div class="oc-board__sides {{#if conflict.freeForAll}}is-free{{/if}}">
+    {{#each sides}}
+    <section class="oc-board__side oc-board__side--{{key}}">
+      <h3 class="oc-board__sidetitle">{{label}}</h3>
+      {{#each cards}}
+      <article class="oc-party {{#if out}}is-out{{/if}} {{#if withdrawn}}is-withdrawn{{/if}} {{#if pushing}}is-pushing{{/if}} {{#if roll}}has-rolled is-{{roll.level}}{{/if}}" data-combatant-id="{{id}}">
+        <img class="oc-party__img" src="{{img}}" alt="">
+        <div class="oc-party__main">
+          <div class="oc-party__name">{{name}} <small>{{poolLabel}}</small></div>
+          <div class="oc-party__pool" data-tooltip="{{pool.value}} / {{pool.max}}">
+            <span class="oc-party__pips">{{#each pips}}<i class="{{#if on}}on{{/if}} {{#if neg}}neg{{/if}}"></i>{{/each}}</span>
+            <span class="oc-party__poolnum">{{pool.value}}<small>/{{pool.max}}</small></span>
+          </div>
+          {{#if thresholds.length}}
+          <div class="oc-party__clues">{{#each thresholds}}<span class="oc-clue {{#if found}}is-found{{/if}}" data-tooltip="{{localize 'COMAE.Conflict.clueAt' n=n}}"><i class="fa-solid {{#if found}}fa-magnifying-glass-plus{{else}}fa-magnifying-glass{{/if}}"></i> {{n}}</span>{{/each}}</div>
+          {{/if}}
+          <div class="oc-party__status">
+            {{#if comae}}<span class="oc-tag oc-tag--out">{{localize "COMAE.Conflict.comae"}}</span>{{else if out}}<span class="oc-tag oc-tag--out">{{localize "COMAE.Conflict.out"}}</span>{{/if}}
+            {{#if withdrawn}}<span class="oc-tag">{{localize "COMAE.Conflict.withdrawn"}}</span>{{/if}}
+            {{#if pushing}}<span class="oc-tag oc-tag--pushed" data-tooltip="COMAE.Conflict.pushingHint">{{localize "COMAE.Conflict.pushing"}}</span>{{/if}}
+            {{#if halved}}<span class="oc-tag oc-tag--pushed">{{localize "COMAE.Conflict.halvedShort"}}</span>{{/if}}
+            {{#if nextMod}}<span class="oc-tag" data-tooltip="COMAE.Conflict.lastRound">{{ocSigned nextMod}}%</span>{{/if}}
+            {{#if clever}}<span class="oc-tag oc-tag--clever" data-tooltip="COMAE.Conflict.cleverHint">{{localize "COMAE.Conflict.clever"}}</span>{{/if}}
+          </div>
+          {{#if target}}
+          <label class="oc-party__target"><span>{{localize "COMAE.Conflict.strikesAt"}}</span>
+            <select data-target-for="{{id}}"><option value="">{{localize "COMAE.Conflict.anyOpponent"}}</option>{{#each target.options}}<option value="{{id}}" {{#if selected}}selected{{/if}}>{{name}}</option>{{/each}}</select>
+          </label>
+          {{/if}}
+        </div>
+        <div class="oc-party__roll">
+          {{#if roll}}
+          <a class="oc-party__die" data-action="showMessage" data-message-id="{{roll.messageId}}" data-tooltip="{{roll.title}} — {{roll.target}}%{{#if roll.weapon}} · {{roll.weapon}}{{/if}}">
+            <span class="oc-party__number">{{roll.value}}</span>
+            <span class="oc-stamp oc-stamp--{{roll.level}} oc-stamp--small">{{roll.label}}</span>
+            {{#if roll.lens}}<span class="oc-party__lens">{{roll.lens}}</span>{{/if}}
+          </a>
+          {{else if canRoll}}
+          <a class="oc-button oc-party__rollbtn" data-action="roll"><i class="fa-solid fa-dice-d10"></i> {{localize "COMAE.Roll.roll"}}</a>
+          {{else if canPush}}
+          <a class="oc-button oc-button--dark" data-action="push" data-tooltip="COMAE.Conflict.pushHint"><i class="fa-solid fa-person-falling-burst"></i> {{localize "COMAE.Conflict.push"}}</a>
+          {{else}}
+          {{#unless out}}{{#unless withdrawn}}<span class="oc-party__waiting">{{localize "COMAE.Conflict.waiting"}}</span>{{/unless}}{{/unless}}
+          {{/if}}
+        </div>
+        <div class="oc-party__ctl">
+          {{#if @root.isGM}}
+          <a data-action="nudge" data-n="20" data-tooltip="COMAE.Conflict.nudgeUp">+20</a>
+          <a data-action="nudge" data-n="-20" data-tooltip="COMAE.Conflict.nudgeDown">−20</a>
+          {{/if}}
+          {{#if isOwner}}{{#unless out}}<a data-action="withdraw" data-tooltip="COMAE.Conflict.withdrawHint"><i class="fa-solid fa-person-walking-arrow-right"></i></a>{{/unless}}{{/if}}
+          {{#if @root.isGM}}
+          {{#if canClear}}<a data-action="clearRoll" data-tooltip="COMAE.Conflict.clearRoll"><i class="fa-solid fa-eraser"></i></a>{{/if}}
+          {{#if out}}<a data-action="revive" data-tooltip="COMAE.Conflict.revive"><i class="fa-solid fa-person-arrow-up-from-line"></i></a>{{/if}}
+          <a data-action="remove" data-tooltip="COMAE.Conflict.remove"><i class="fa-solid fa-xmark"></i></a>
+          {{/if}}
+        </div>
+      </article>
+      {{else}}
+      <p class="oc-empty">{{localize "COMAE.Conflict.emptySide"}}</p>
+      {{/each}}
+    </section>
+    {{#unless @last}}<div class="oc-board__versus" aria-hidden="true">{{localize "COMAE.Conflict.versus"}}</div>{{/unless}}
+    {{/each}}
+  </div>
+
+  <footer class="oc-board__foot">
+    <span class="oc-board__progress {{#if progress.all}}is-ready{{/if}}">{{localize "COMAE.Conflict.progress" rolled=progress.rolled total=progress.total}}</span>
+    {{#if lenses}}<span class="oc-board__lenses" data-tooltip="{{#each lenses}}<b>{{label}}</b>: {{text}}<br>{{/each}}"><i class="fa-solid fa-glasses"></i> {{localize "COMAE.Conflict.lensesOn"}}</span>{{/if}}
+    {{#if isGM}}
+    <a class="oc-button oc-button--small" data-action="addObstacle"><i class="fa-solid fa-dungeon"></i> {{localize "COMAE.Conflict.addObstacle"}}</a>
+    <a class="oc-button oc-button--dark" data-action="resolve"><i class="fa-solid fa-gavel"></i> {{localize "COMAE.Conflict.resolve"}}</a>
+    <a class="oc-button oc-button--small" data-action="end"><i class="fa-solid fa-flag-checkered"></i> {{localize "COMAE.Conflict.end"}}</a>
+    {{/if}}
+  </footer>
+  {{#if isGM}}<p class="oc-board__hint">{{localize "COMAE.Conflict.boardHint"}}</p>{{/if}}
+</div>

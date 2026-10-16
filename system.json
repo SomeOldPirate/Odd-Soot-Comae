@@ -1,33 +1,199 @@
 {
   "id": "oddsoot-comae",
   "title": "Odd Soot (Comae Engine)",
-  "version": "1.0.0",
+  "description": "<p>Mystery and investigation in an alternate 1920s where humanity has reached the stars and an alien plague of the mind called The Soot is spreading, played on Clarence Redd's Comae Engine (FrostByte Books): nine skills and their Focuses, four Conflict Pools, Tags, Lenses, and every challenge an Extended Conflict. Case-file sheets, a conflict board, opposed rolls with Escalate, Luminarian magic paid from POW, and The Soot with its Peculiarities.</p>",
+  "version": "2.2.0",
   "compatibility": {
-    "minimum": "12",
-    "verified": "13"
+    "minimum": "14",
+    "verified": "14.367"
   },
-  "esmodules": ["oddsoot.js"],
-  "styles": ["styles/oddsoot.css"],
-
-"manifest": "https://github.com/SomeOldPirate/Odd-Soot-Comae/releases/latest/download/system.json",
-"download": "https://github.com/SomeOldPirate/Odd-Soot-Comae/releases/latest/download/oddsoot-comae.zip",
-
+  "authors": [
+    {
+      "name": "Mark",
+      "flags": {}
+    }
+  ],
+  "url": "https://github.com/SomeOldPirate/Odd-Soot-Comae",
+  "manifest": "https://github.com/SomeOldPirate/Odd-Soot-Comae/releases/latest/download/system.json",
+  "download": "https://github.com/SomeOldPirate/Odd-Soot-Comae/releases/latest/download/oddsoot-comae.zip",
+  "readme": "README.md",
+  "esmodules": [
+    "module/oddsoot-comae.mjs"
+  ],
+  "styles": [
+    "styles/oddsoot-comae.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
   "documentTypes": {
     "Actor": {
-      "character": "Character",
-      "npc": "NPC"
+      "character": {
+        "htmlFields": [
+          "notes"
+        ]
+      },
+      "npc": {
+        "htmlFields": [
+          "notes"
+        ]
+      }
     },
     "Item": {
-      "focus": "Focus",
-      "gear": "Gear",
-      "weapon": "Weapon",
-      "armor": "Armor",
-      "peculiarity": "Peculiarity"
+      "focus": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "tag": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "peculiarity": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "weapon": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "armor": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "gear": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "career": {
+        "htmlFields": [
+          "description"
+        ]
+      }
     }
   },
+  "packs": [
+    {
+      "name": "reference",
+      "label": "Reference",
+      "path": "packs/reference",
+      "type": "JournalEntry",
+      "system": "oddsoot-comae",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "tags",
+      "label": "Tags",
+      "path": "packs/tags",
+      "type": "Item",
+      "system": "oddsoot-comae",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "focuses",
+      "label": "Focuses",
+      "path": "packs/focuses",
+      "type": "Item",
+      "system": "oddsoot-comae",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "careers",
+      "label": "Careers",
+      "path": "packs/careers",
+      "type": "Item",
+      "system": "oddsoot-comae",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "spells",
+      "label": "Spells",
+      "path": "packs/spells",
+      "type": "Item",
+      "system": "oddsoot-comae",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "peculiarities",
+      "label": "Peculiarities",
+      "path": "packs/peculiarities",
+      "type": "Item",
+      "system": "oddsoot-comae",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "armoury",
+      "label": "Armoury",
+      "path": "packs/armoury",
+      "type": "Item",
+      "system": "oddsoot-comae",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    }
+  ],
+  "packFolders": [
+    {
+      "name": "Odd Soot (Comae)",
+      "sorting": "m",
+      "color": "#2b2622",
+      "packs": [
+        "reference",
+        "tags",
+        "focuses",
+        "careers",
+        "spells",
+        "peculiarities",
+        "armoury"
+      ]
+    }
+  ],
   "grid": {
     "distance": 1,
-    "units": "m",
-    "type": 1
+    "units": "m"
+  },
+  "primaryTokenAttribute": "pools.body",
+  "secondaryTokenAttribute": "pools.pow",
+  "flags": {
+    "hotReload": {
+      "extensions": [
+        "css",
+        "hbs",
+        "json"
+      ],
+      "paths": [
+        "styles",
+        "templates",
+        "lang"
+      ]
+    }
   }
 }

@@ -1,0 +1,39 @@
+<div class="oc-card oc-card--{{kind}}{{#if stamp}} is-{{stamp.key}}{{/if}}">
+  <header class="oc-card__head">
+    {{#if img}}<img class="oc-card__img" src="{{img}}" alt="">{{/if}}
+    <div class="oc-card__titles">
+      <span class="oc-card__kicker">{{kicker}}</span>
+      <h3 class="oc-card__title">{{title}}</h3>
+    </div>
+  </header>
+
+  {{#if die}}
+  <div class="oc-card__die">
+    <span class="oc-card__number {{#if die.exceptional}}is-double{{/if}}">{{die.value}}</span>
+    {{#if die.target}}<span class="oc-card__target"><span>{{localize "COMAE.Card.against"}}</span> <b>{{die.target}}%</b></span>{{/if}}
+    {{#if stamp}}<span class="oc-stamp oc-stamp--{{stamp.key}}">{{stamp.label}}</span>{{/if}}
+  </div>
+  {{else if stamp}}
+  <div class="oc-card__die oc-card__die--nostamp"><span class="oc-stamp oc-stamp--{{stamp.key}}">{{stamp.label}}</span></div>
+  {{/if}}
+
+  {{#if total}}<div class="oc-card__total"><span>{{total}}</span>{{#if formula}}<small>{{formula}}</small>{{/if}}</div>{{/if}}
+
+  {{#if luckNote}}<p class="oc-card__luck"><i class="fa-solid fa-clover"></i> {{luckNote}}</p>{{/if}}
+
+  {{#if rows.length}}
+  <dl class="oc-card__rows">{{#each rows}}<div class="{{#if strong}}is-strong{{/if}}"><dt>{{label}}</dt><dd>{{value}}</dd></div>{{/each}}</dl>
+  {{/if}}
+
+  {{#if notes.length}}<ul class="oc-card__notes">{{#each notes}}<li>{{{this}}}</li>{{/each}}</ul>{{/if}}
+
+  {{#if buttons.length}}
+  <div class="oc-card__buttons">
+    {{#each buttons}}
+    <button type="button" data-oc-action="{{action}}" data-oc-who="{{who}}"{{#if once}} data-oc-once="{{once}}"{{/if}}{{#if target}} data-oc-target="{{target}}"{{/if}}{{#each data}} data-{{@key}}="{{this}}"{{/each}}{{#if tooltip}} data-tooltip="{{tooltip}}"{{/if}}>
+      {{#if icon}}<i class="{{icon}}"></i>{{/if}} {{label}}
+    </button>
+    {{/each}}
+  </div>
+  {{/if}}
+</div>

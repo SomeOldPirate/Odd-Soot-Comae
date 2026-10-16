@@ -1,0 +1,61 @@
+<section class="tab oc-tab oc-tab--gear {{tab.cssClass}}" data-tab="gear" data-group="primary">
+  <div class="oc-panel">
+    <h3 class="oc-panel__title">{{localize "COMAE.Gear.weapons"}}
+      {{#if editable}}<a class="oc-panel__add" data-action="itemCreate" data-type="weapon" data-tooltip="COMAE.Gear.addWeapon"><i class="fa-solid fa-plus"></i></a>{{/if}}
+    </h3>
+    <table class="oc-table">
+      <thead><tr><th></th><th>{{localize "COMAE.Gear.name"}}</th><th>{{localize "COMAE.Gear.focus"}}</th><th>{{localize "COMAE.Gear.damage"}}</th><th>{{localize "COMAE.Gear.range"}}</th><th>%</th><th></th></tr></thead>
+      <tbody>
+        {{#each weapons}}
+        <tr data-item-id="{{id}}" class="{{#unless system.equipped}}is-stowed{{/unless}}">
+          <td><a data-action="equip" data-tooltip="COMAE.Gear.equipHint"><i class="fa-solid {{#if system.equipped}}fa-hand-fist{{else}}fa-box{{/if}}"></i></a></td>
+          <td><a class="oc-table__name" data-action="rollItem" data-tooltip="COMAE.Gear.attackHint">{{name}}</a></td>
+          <td>//{{focus}}</td>
+          <td><a class="oc-table__dmg" data-action="weaponDamage" data-tooltip="COMAE.Gear.damageHint">{{system.formula}}</a></td>
+          <td>{{#if system.range}}{{system.range}} m{{else}}—{{/if}}</td>
+          <td>{{value}}</td>
+          <td class="oc-table__ctl">{{#if @root.editable}}<a data-action="itemEdit"><i class="fa-solid fa-pen-nib"></i></a><a data-action="itemDelete"><i class="fa-solid fa-xmark"></i></a>{{/if}}</td>
+        </tr>
+        {{else}}<tr><td colspan="7" class="oc-empty">{{localize "COMAE.Gear.noWeapons"}}</td></tr>{{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="oc-panel">
+    <h3 class="oc-panel__title">{{localize "COMAE.Gear.armour"}}
+      {{#if editable}}<a class="oc-panel__add" data-action="itemCreate" data-type="armor" data-tooltip="COMAE.Gear.addArmour"><i class="fa-solid fa-plus"></i></a>{{/if}}
+    </h3>
+    <table class="oc-table">
+      <thead><tr><th></th><th>{{localize "COMAE.Gear.name"}}</th><th>AP</th><th>{{localize "COMAE.Gear.notes"}}</th><th></th></tr></thead>
+      <tbody>
+        {{#each armour}}
+        <tr data-item-id="{{id}}" class="{{#unless system.equipped}}is-stowed{{/unless}}">
+          <td><a data-action="equip" data-tooltip="COMAE.Gear.wearHint"><i class="fa-solid {{#if system.equipped}}fa-shirt{{else}}fa-box{{/if}}"></i></a></td>
+          <td><a class="oc-table__name" data-action="itemEdit">{{name}}</a></td>
+          <td>{{system.ap}}{{#if system.apFirearms}} ({{system.apFirearms}} {{localize "COMAE.Gear.vsFirearms"}}){{/if}}</td>
+          <td>{{#if system.heavy}}{{localize "COMAE.Gear.heavyNote"}}{{/if}}{{#if (ne system.shield "none")}}{{shield}}{{/if}}</td>
+          <td class="oc-table__ctl">{{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-xmark"></i></a>{{/if}}</td>
+        </tr>
+        {{else}}<tr><td colspan="5" class="oc-empty">{{localize "COMAE.Gear.noArmour"}}</td></tr>{{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="oc-panel">
+    <h3 class="oc-panel__title">{{localize "COMAE.Gear.gear"}}
+      {{#if editable}}<a class="oc-panel__add" data-action="itemCreate" data-type="gear" data-tooltip="COMAE.Gear.addGear"><i class="fa-solid fa-plus"></i></a>{{/if}}
+    </h3>
+    <ul class="oc-gearlist">
+      {{#each gear}}
+      <li data-item-id="{{id}}">
+        <img src="{{img}}" alt="">
+        <a class="oc-gearlist__name" data-action="itemEdit">{{name}}</a>
+        <input type="number" data-item-field="system.quantity" value="{{system.quantity}}" min="0" {{disabled (not @root.editable)}} aria-label="{{localize 'COMAE.Gear.quantity'}}">
+        {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-xmark"></i></a>{{/if}}
+      </li>
+      {{else}}<li class="oc-empty">{{localize "COMAE.Gear.noGear"}}</li>{{/each}}
+    </ul>
+    <label class="oc-field oc-field--wide"><span>{{localize "COMAE.Gear.wealth"}}</span>
+      <input class="oc-typed" type="text" name="system.details.wealth" value="{{system.details.wealth}}" placeholder="{{localize 'COMAE.Gear.wealthHint'}}" {{disabled (not editable)}}></label>
+  </div>
+</section>

@@ -1,0 +1,84 @@
+<div class="oc-roll">
+  <div class="oc-roll__head">
+    <div class="oc-roll__pick">
+      {{#if spec.lockSkill}}
+      <input type="hidden" name="skill" value="{{skill}}">
+      <span class="oc-roll__label">{{localize "COMAE.Roll.skill"}}</span>
+      <span class="oc-roll__skillname">{{#each skills}}{{#if selected}}{{label}}{{/if}}{{/each}}</span>
+      {{else}}
+      <label class="oc-roll__label" for="oc-roll-skill">{{localize "COMAE.Roll.skill"}}</label>
+      <select name="skill" id="oc-roll-skill">{{#each skills}}<option value="{{key}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select>
+      {{/if}}
+      <div class="form-group oc-roll__focus">
+        <select name="focus" aria-label="{{localize 'COMAE.Roll.focus'}}"></select>
+      </div>
+    </div>
+    <div class="oc-roll__result">
+      <span class="oc-roll__label">{{localize "COMAE.Roll.target"}}</span>
+      <span class="oc-roll__target">—</span>
+    </div>
+  </div>
+
+  {{#if standing.length}}
+  <p class="oc-roll__reasons"><i class="fa-solid fa-circle-exclamation"></i> {{#each standing}}{{label}} {{ocSigned value}}%{{#unless @last}}; {{/unless}}{{/each}}</p>
+  {{/if}}
+  {{#if fixed.length}}
+  <p class="oc-roll__reasons"><i class="fa-solid fa-scale-unbalanced"></i> {{#each fixed}}{{label}} {{ocSigned value}}%{{#unless @last}}; {{/unless}}{{/each}}</p>
+  {{/if}}
+
+  <fieldset class="oc-roll__grades">
+    <legend>{{localize "COMAE.Roll.difficulty"}}</legend>
+    <div class="oc-grades">
+      {{#each difficulties}}
+      <label class="oc-grade oc-grade--{{key}}"><input type="radio" name="difficulty" value="{{key}}" {{checked checked}}><span>{{label}}</span><small>{{hint}}</small></label>
+      {{/each}}
+    </div>
+  </fieldset>
+
+  {{#if lenses}}
+  <div class="form-group">
+    <label>{{localize "COMAE.Roll.lens"}}</label>
+    <select name="lens">{{#each lenses}}<option value="{{key}}" title="{{text}}">{{label}}</option>{{/each}}</select>
+  </div>
+  {{/if}}
+
+  <div class="oc-roll__row">
+    <div class="form-group">
+      <label>{{localize "COMAE.Roll.helpers"}}</label>
+      <select name="helpers"><option value="0">—</option><option value="1">1 (+10%)</option><option value="2">2 (+15%)</option><option value="3">3 (+17%)</option></select>
+    </div>
+    <div class="form-group">
+      <label>{{localize "COMAE.Roll.modifier"}}</label>
+      <input type="number" name="mod" value="0" step="5">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{localize "COMAE.Roll.alienLabel"}}</label>
+    <select name="alien">{{#each alien}}<option value="{{key}}">{{label}}</option>{{/each}}</select>
+  </div>
+
+  {{#if drives.length}}
+  <fieldset class="oc-roll__drives is-hidden">
+    <legend>{{localize "COMAE.Roll.drives"}}</legend>
+    {{#each drives}}<label class="oc-check"><input type="checkbox" name="drive.{{id}}"> {{label}}{{#if corrupted}} <small>({{localize "COMAE.Drive.corrupted"}})</small>{{/if}} <small>(+20%)</small></label>{{/each}}
+  </fieldset>
+  {{/if}}
+
+  {{#if (or tagMods.length disposition)}}
+  <fieldset class="oc-roll__social is-hidden">
+    <legend>{{localize "COMAE.Roll.social"}}</legend>
+    {{#if disposition}}<label class="oc-check"><input type="checkbox" name="disposition" checked> {{disposition.name}}: {{disposition.label}} ({{ocSigned disposition.value}}%)</label>{{/if}}
+    {{#each tagMods}}<label class="oc-check"><input type="checkbox" name="tag.{{key}}"> {{label}} <small>({{ocSigned value}}%)</small></label>{{/each}}
+  </fieldset>
+  {{/if}}
+
+  {{#if pecs.length}}
+  <fieldset class="oc-roll__pecs">
+    <legend>{{localize "COMAE.Roll.peculiarities"}}</legend>
+    {{#each pecs}}<label class="oc-check"><input type="checkbox" name="pec.{{id}}"> {{name}} <small>(−{{value}}%)</small></label>{{/each}}
+  </fieldset>
+  {{/if}}
+
+  {{#if spec.extra}}{{{spec.extra}}}{{/if}}
+</div>

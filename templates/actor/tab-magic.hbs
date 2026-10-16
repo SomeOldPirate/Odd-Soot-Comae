@@ -1,0 +1,39 @@
+<section class="tab oc-tab oc-tab--magic {{tab.cssClass}}" data-tab="magic" data-group="primary">
+  <div class="oc-magic {{#if magic.locked}}is-locked{{/if}}">
+    <div class="oc-magic__skill">
+      <ul class="oc-skills oc-skills--single">{{#with magic}}{{> "systems/oddsoot-comae/templates/actor/parts/skill-row.hbs"}}{{/with}}</ul>
+      <p class="oc-hint">{{#if magic.locked}}{{localize "COMAE.Magic.lockedHelp"}}{{else}}{{localize "COMAE.Magic.help"}}{{/if}}</p>
+    </div>
+  </div>
+
+  <div class="oc-panel">
+    <h3 class="oc-panel__title">{{localize "COMAE.Magic.spells"}}
+      {{#if (and editable isGM)}}<a class="oc-panel__add" data-action="itemCreate" data-type="spell" data-tooltip="COMAE.Magic.newSpell"><i class="fa-solid fa-plus"></i></a>{{/if}}
+    </h3>
+    <div class="oc-spells">
+      {{#each spells}}
+      <article class="oc-spell" data-item-id="{{id}}">
+        <img class="oc-spell__img" src="{{img}}" alt="">
+        <div class="oc-spell__main">
+          <a class="oc-spell__name" data-action="itemEdit">{{name}}</a>
+          <dl class="oc-spell__stats">
+            <div><dt>{{localize "COMAE.Magic.cost"}}</dt><dd>{{sp.cost}} POW{{#if sp.costText}} <small>({{sp.costText}})</small>{{/if}}</dd></div>
+            <div><dt>{{localize "COMAE.Magic.range"}}</dt><dd>{{sp.range}}</dd></div>
+            <div><dt>{{localize "COMAE.Magic.duration"}}</dt><dd>{{sp.duration}}</dd></div>
+            <div><dt>{{localize "COMAE.Magic.complexity"}}</dt><dd>{{sp.complexity}}</dd></div>
+            {{#if (ne sp.resist "none")}}<div><dt>{{localize "COMAE.Magic.resistLabel"}}</dt><dd>{{resist}}</dd></div>{{/if}}
+          </dl>
+        </div>
+        <div class="oc-spell__cast">
+          <a class="oc-button oc-button--dark" data-action="rollItem"><i class="fa-solid fa-wand-sparkles"></i> {{localize "COMAE.Magic.cast"}}</a>
+          <span class="oc-spell__value">{{value}}%</span>
+        </div>
+        {{#if @root.editable}}<a class="oc-spell__del" data-action="itemDelete" data-tooltip="COMAE.Sheet.delete"><i class="fa-solid fa-xmark"></i></a>{{/if}}
+      </article>
+      {{else}}
+      <p class="oc-empty">{{localize "COMAE.Magic.none"}}</p>
+      {{/each}}
+    </div>
+    <p class="oc-hint">{{localize "COMAE.Magic.studyHelp"}}</p>
+  </div>
+</section>

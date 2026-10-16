@@ -1,0 +1,12 @@
+<div class="oc-form">
+  <div class="oc-form__row">
+    <div class="form-group"><label>{{localize "COMAE.Gear.ap"}}</label><input type="number" name="system.ap" value="{{system.ap}}" min="0" {{disabled (not editable)}}></div>
+    <div class="form-group" data-tooltip="COMAE.Gear.apFirearmsHint"><label>{{localize "COMAE.Gear.apFirearms"}}</label><input type="number" name="system.apFirearms" value="{{system.apFirearms}}" min="0" {{disabled (not editable)}}></div>
+  </div>
+  <div class="form-group"><label>{{localize "COMAE.Gear.shield"}}</label><select name="system.shield" {{disabled (not editable)}}>{{selectOptions shields selected=system.shield}}</select></div>
+  <div class="oc-form__row">
+    <label class="oc-check" data-tooltip="COMAE.Gear.heavyHint"><input type="checkbox" name="system.heavy" {{checked system.heavy}} {{disabled (not editable)}}> {{localize "COMAE.Gear.heavy"}}</label>
+    <label class="oc-check"><input type="checkbox" name="system.equipped" {{checked system.equipped}} {{disabled (not editable)}}> {{localize "COMAE.Gear.worn"}}</label>
+  </div>
+  <div class="form-group"><label>{{localize "COMAE.Gear.price"}}</label><input type="text" name="system.price" value="{{system.price}}" {{disabled (not editable)}}></div>
+</div>

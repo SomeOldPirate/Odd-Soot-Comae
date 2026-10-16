@@ -1,0 +1,51 @@
+<div class="oc-setup">
+  <div class="form-group">
+    <label>{{localize "COMAE.Conflict.preset"}}</label>
+    <select name="preset">{{#each presets}}<option value="{{key}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select>
+  </div>
+  <p class="oc-setup__note hint"></p>
+  <div class="form-group"><label>{{localize "COMAE.Conflict.name"}}</label><input type="text" name="name" value=""></div>
+  <div class="form-group"><label>{{localize "COMAE.Conflict.pool"}}</label><select name="pool">{{selectOptions pools}}</select></div>
+  <div class="form-group"><label>{{localize "COMAE.Conflict.skills"}}</label><input type="text" name="skills" value=""></div>
+  <div class="oc-setup__row">
+    <div class="form-group"><label>{{localize "COMAE.Conflict.roundLength"}}</label><input type="text" name="round" value=""></div>
+    <div class="form-group"><label>{{localize "COMAE.Conflict.damage"}}</label><input type="text" name="damage" value="1d6"></div>
+  </div>
+  <div class="form-group"><label>{{localize "COMAE.Conflict.damageMode"}}</label><select name="mode">{{selectOptions modes}}</select></div>
+  <label class="oc-check"><input type="checkbox" name="lenses" {{checked lensesDefault}}> {{localize "COMAE.Conflict.lensesUse"}}</label>
+
+  <fieldset>
+    <legend>{{localize "COMAE.Conflict.participants"}}</legend>
+    {{#each candidates}}
+    <div class="oc-setup__who">
+      <input type="checkbox" name="take.{{i}}" {{checked checked}}>
+      <img src="{{img}}" alt="">
+      <span class="oc-setup__whoname">{{name}}</span>
+      <select name="side.{{i}}">
+        <option value="pc" {{#if (eq side "pc")}}selected{{/if}}>{{localize "COMAE.Conflict.sidePC"}}</option>
+        <option value="opp" {{#if (eq side "opp")}}selected{{/if}}>{{localize "COMAE.Conflict.sideOpp"}}</option>
+      </select>
+    </div>
+    {{else}}
+    <p class="hint">{{localize "COMAE.Conflict.noCandidates"}}</p>
+    {{/each}}
+    <p class="hint">{{localize "COMAE.Conflict.candidatesHint"}}</p>
+  </fieldset>
+
+  <fieldset class="oc-setup__obstacle">
+    <legend>{{localize "COMAE.Conflict.obstacle"}}</legend>
+    <p class="hint">{{localize "COMAE.Conflict.obstacleHint"}}</p>
+    <div class="form-group"><label>{{localize "COMAE.Conflict.obstacleName"}}</label><input type="text" name="obstacleName" value="" placeholder="{{localize 'COMAE.Conflict.obstaclePlaceholder'}}"></div>
+    <div class="form-group"><label>{{localize "COMAE.Conflict.rating"}}</label>
+      <select name="obstacleRating"><option value="">—</option>{{#each challenges}}<option value="{{key}}">{{label}}</option>{{/each}}</select></div>
+    {{#if spell}}
+    <div class="form-group"><label>{{localize "COMAE.Conflict.puzzle"}}</label>
+      <select name="puzzle">{{#each puzzles}}<option value="{{key}}" {{#if (eq key "50")}}selected{{/if}}>{{label}}</option>{{/each}}</select></div>
+    {{/if}}
+    <div class="oc-setup__row">
+      <div class="form-group"><label>{{localize "COMAE.Conflict.forcePool"}}</label><input type="number" name="obstaclePool" value="" min="1"></div>
+      <div class="form-group"><label>{{localize "COMAE.Conflict.forceSkill"}}</label><input type="number" name="obstacleSkill" value="" min="0"></div>
+    </div>
+    <div class="form-group oc-setup__clues is-hidden"><label>{{localize "COMAE.Conflict.clues"}}</label><input type="text" name="clues" value="" placeholder="10, 5, 0"></div>
+  </fieldset>
+</div>

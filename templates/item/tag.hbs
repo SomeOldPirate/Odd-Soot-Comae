@@ -1,0 +1,6 @@
+<div class="oc-form">
+  <div class="form-group"><label>{{localize "COMAE.Tag.label"}}</label><select name="system.key" {{disabled (not editable)}}>{{selectOptions tagKeys selected=system.key}}</select></div>
+  <div class="form-group"><label>{{localize "COMAE.Tag.detail"}}</label><input type="text" name="system.detail" value="{{system.detail}}" placeholder="{{localize 'COMAE.Tag.detailHint'}}" {{disabled (not editable)}}></div>
+  {{#if system.callable}}<div class="form-group"><label>{{localize "COMAE.Tag.uses"}}</label><input type="number" name="system.uses" value="{{system.uses}}" min="0" {{disabled (not editable)}}><p class="hint">{{localize "COMAE.Tag.usesHint" n=system.chance}}</p></div>{{/if}}
+  {{#if tagDef}}<p class="oc-hint">{{tagDef.text}}</p>{{/if}}
+</div>

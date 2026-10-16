@@ -1,0 +1,37 @@
+<section class="tab oc-tab oc-tab--skills {{tab.cssClass}}" data-tab="skills" data-group="primary">
+  <div class="oc-toolbar">
+    {{#if editable}}
+    <a class="oc-button oc-button--ghost" data-action="endSession" data-tooltip="COMAE.Experience.endSessionHint"><i class="fa-solid fa-moon"></i> {{localize "COMAE.Experience.endSession"}}</a>
+    <label class="oc-toolbar__check" data-tooltip="COMAE.Experience.followedHint"><input type="checkbox" name="system.xp.followed" {{checked xp.followed}}> {{localize "COMAE.Experience.followed"}}</label>
+    {{#if canImprove}}<a class="oc-button oc-button--small" data-action="bank" data-tooltip="COMAE.Experience.bankHint"><i class="fa-solid fa-piggy-bank"></i> {{localize "COMAE.Experience.bank"}}</a>{{/if}}
+    {{#if (gte xp.banked costs.focus)}}<a class="oc-button oc-button--small" data-action="buy" data-what="focus"><i class="fa-solid fa-crosshairs"></i> {{localize "COMAE.Experience.buyFocus" n=costs.focus}}</a>{{/if}}
+    {{#if (gte xp.banked costs.tag)}}<a class="oc-button oc-button--small" data-action="buy" data-what="tag"><i class="fa-solid fa-hashtag"></i> {{localize "COMAE.Experience.buyTag" n=costs.tag}}</a>{{/if}}
+    <span class="oc-toolbar__spacer"></span>
+    <a class="oc-button oc-button--ghost {{#if creation}}is-on{{/if}}" data-action="toggleCreation" data-tooltip="COMAE.Creation.toggleHint"><i class="fa-solid fa-pen-ruler"></i> {{localize "COMAE.Creation.mode"}}</a>
+    {{/if}}
+  </div>
+
+  {{#if creation}}
+  <div class="oc-creation">
+    <div class="oc-pyramid {{#if pyramid.ok}}is-ok{{/if}}">
+      <span class="oc-creation__title">{{localize "COMAE.Creation.pyramid"}}</span>
+      {{#each pyramid.rows}}
+      <div class="oc-pyramid__row">
+        {{#each this}}<span class="oc-pyramid__slot {{#if skill}}is-filled{{/if}}"><b>{{value}}%{{#if focus}}<sup>*</sup>{{/if}}</b><small>{{#if skill}}{{skill.label}}{{else}}—{{/if}}</small></span>{{/each}}
+      </div>
+      {{/each}}
+      {{#if pyramid.extra.length}}<p class="oc-creation__warn"><i class="fa-solid fa-triangle-exclamation"></i> {{localize "COMAE.Creation.offPyramid"}} {{#each pyramid.extra}}{{label}} {{value}}%{{#unless @last}}, {{/unless}}{{/each}}</p>{{/if}}
+    </div>
+    <div class="oc-creation__steps">
+      <p class="oc-hint">{{localize "COMAE.Creation.help"}}</p>
+      <p class="oc-hint">{{localize "COMAE.Creation.poolsHelp" sum=pyramid.poolSum}}</p>
+      {{#if editable}}<a class="oc-button oc-button--small" data-action="rollPools"><i class="fa-solid fa-dice"></i> {{localize "COMAE.Creation.rollPools"}}</a>{{/if}}
+    </div>
+  </div>
+  {{/if}}
+
+  <div class="oc-skillcard">
+    <h3 class="oc-panel__title">{{localize "COMAE.Sheet.skills"}} <small>{{localize "COMAE.Sheet.skillsHint"}}</small></h3>
+    <ul class="oc-skills">{{#each skills}}{{> "systems/oddsoot-comae/templates/actor/parts/skill-row.hbs"}}{{/each}}</ul>
+  </div>
+</section>
