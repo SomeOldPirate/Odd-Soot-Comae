@@ -76,7 +76,8 @@
         "skill": "Skill roll",
         "oppose": "Opposed roll",
         "cast": "Spell",
-        "conflict": "Extended conflict"
+        "conflict": "Extended conflict",
+        "table": "From the files"
       }
     },
     "Roll": {

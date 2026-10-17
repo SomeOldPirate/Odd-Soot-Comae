@@ -98,12 +98,17 @@ Hooks.once("init", () => {
   const tpl = `systems/${SYSTEM_ID}/templates`;
   foundry.applications.handlebars.loadTemplates([
     `${tpl}/chat/card.hbs`,
+    `${tpl}/chat/roll.hbs`,
+    `${tpl}/chat/table-draw.hbs`,
     `${tpl}/dialog/roll.hbs`,
     `${tpl}/apps/conflict-setup.hbs`,
     `${tpl}/actor/parts/skill-row.hbs`,
     `${tpl}/actor/parts/peculiarity.hbs`,
     ...["focus", "tag", "peculiarity", "weapon", "armor", "gear", "career"].map(type => `${tpl}/item/${type}.hbs`)
   ]);
+  // Every roll and table draw in chat is typed on the same slip as the system's own cards.
+  foundry.dice.Roll.CHAT_TEMPLATE = `${tpl}/chat/roll.hbs`;
+  CONFIG.RollTable.resultTemplate = `${tpl}/chat/table-draw.hbs`;
   Handlebars.registerHelper("ocSigned", n => (Number(n) > 0 ? `+${n}` : String(n)));
 
   registerSettings();

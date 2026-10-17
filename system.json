@@ -2,7 +2,7 @@
   "id": "oddsoot-comae",
   "title": "Odd Soot (Comae Engine)",
   "description": "<p>Mystery and investigation in an alternate 1920s where humanity has reached the stars and an alien plague of the mind called The Soot is spreading, played on Clarence Redd's Comae Engine (FrostByte Books): nine skills and their Focuses, four Conflict Pools, Tags, Lenses, and every challenge an Extended Conflict. Case-file sheets, a conflict board, opposed rolls with Escalate, Luminarian magic paid from POW, and The Soot with its Peculiarities.</p>",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "compatibility": {
     "minimum": "14",
     "verified": "14.367"

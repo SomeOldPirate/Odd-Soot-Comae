@@ -22,6 +22,8 @@ carried across.
 - **Roll cards**: doubles are exceptional; *Flip* spends Luck; *Repay* turns a success into a
   failure to pay back borrowed Luck; *Oppose* lets anyone roll against it, and the contest card
   lets the Game Master *Escalate* into an Extended Conflict.
+- **Every message in the theme**: speech, emotes, whispers, plain dice rolls and roll-table draws
+  are typed on the same paper slips as the system's own cards.
 - **Extended Conflicts** on a Conflict Board: templates for Persuade, Journey on Foot, Pick a Lock,
   Search for Clues (with clue thresholds), Melee and Firearm Combat, Dinner Party, Decipher a
   Manuscript, Use an Unfamiliar Device, Use a Difference Engine, Learn a Spell, Poker, Chase and

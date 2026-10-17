@@ -7,7 +7,7 @@
 import C, { SYSTEM_ID } from "../config.mjs";
 import * as R from "../rules.mjs";
 import { promptRoll } from "../dice/roll-dialog.mjs";
-import { rollD100, rollTitle, spendLuck, registerRollKind, pickActor } from "../dice/roll.mjs";
+import { rollD100, rollTitle, spendLuck, registerRollKind, pickActor, rollFormula } from "../dice/roll.mjs";
 import { castSpell } from "../dice/magic.mjs";
 import { postCard, t, esc, d100Text, registerCardAction, actorOf } from "../helpers/chat.mjs";
 
@@ -166,8 +166,8 @@ export default class ComaeActor extends Actor {
     const h = C.hazards[data.hazard];
     const formula = data.formula || h?.formula || "1d6";
     const pool = h?.pool ?? data.pool;
-    const roll = await new Roll(formula).evaluate();
-    await roll.toMessage({ speaker: ChatMessage.getSpeaker({ actor: this }), flavor: `${h?.label ?? t("COMAE.Damage.plain")}${h?.note ? ` — ${h.note}` : ""}` });
+    const { roll } = await rollFormula(formula, { actor: this, kicker: t("COMAE.Damage.rollKicker"), title: h?.label ?? t("COMAE.Damage.plain"),
+      notes: h?.note ? [esc(h.note)] : [] });
     return this.takeDamage(pool, roll.total, { armour: !!data.armour, push: !!data.push, source: h?.label });
   }
 

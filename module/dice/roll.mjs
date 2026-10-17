@@ -303,11 +303,11 @@ export async function postContest(aMessage, bMessage) {
 
 /**
  * Roll a formula to chat under a heading.
- * @param {string} formula
+ * @param {string|Roll} formula   A formula, or a Roll already evaluated.
  * @param {object} [o]
  */
 export async function rollFormula(formula, { actor = null, title = "", kicker = "", notes = [], buttons = [], flags = {} } = {}) {
-  const roll = await new Roll(formula).evaluate();
+  const roll = formula instanceof Roll ? formula : await new Roll(formula).evaluate();
   const message = await postCard({ kind: "formula", kicker, title, total: roll.total, formula: roll.formula, notes, buttons },
     { actor, rolls: [roll], flags });
   return { roll, message };

@@ -15,6 +15,7 @@
 
 .oddsoot-comae,
 .oc-card,
+.oc-message,
 .oc-tracker-banner,
 .oc-new-conflict {
   --oc-deco: "Limelight", "Poiret One", Georgia, serif;
@@ -722,8 +723,142 @@
    Chat cards: a typed slip
    -------------------------------------------------------------------------- */
 
-.oc-message { padding: 0; }
+/* Every message comes in a soot-black sleeve; what it says is typed on a paper slip inside. */
+.chat-message.oc-message {
+  padding: 4px 5px 5px;
+  border: 1px solid var(--oc-brass-dk);
+  border-radius: 2px;
+  background: linear-gradient(180deg, #2a211a 0%, #16110d 100%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  color: var(--oc-paper);
+  font-family: var(--oc-serif);
+}
+.oc-message .message-header { align-items: baseline; gap: 0 6px; margin: 0 2px 4px; color: var(--oc-brass); line-height: 18px; }
+.oc-message .message-header .message-sender {
+  overflow: hidden;
+  color: var(--oc-brass-hi);
+  font-family: var(--oc-deco);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-overflow: ellipsis;
+}
+.oc-message .message-header .message-metadata { color: var(--oc-brass); font-family: var(--oc-type); font-size: 10.5px; }
+.oc-message .message-header .message-metadata a { color: var(--oc-brass); }
+.oc-message .message-header .message-metadata a:hover { color: var(--oc-paper); text-shadow: none; }
+.oc-message .message-header .whisper-to,
+.oc-message .message-header .flavor-text {
+  flex: 0 0 100%;
+  color: var(--oc-mercury);
+  font-family: var(--oc-type);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+}
+.oc-message .message-header .flavor-text { color: var(--oc-paper-3); }
 .oc-message .message-content { padding: 0; }
+
+/* Speech, emotes, plain rolls and anything else posted bare: the slip itself. */
+.oc-message:not(.oc-message--card) .message-content {
+  padding: 6px 9px 7px;
+  border: 1px solid var(--oc-rule);
+  border-top: 3px double var(--oc-brass);
+  background: var(--oc-grain), linear-gradient(180deg, #f7f0e0 0%, var(--oc-paper) 100%);
+  color: var(--oc-ink);
+  font-size: 15px;
+  line-height: 1.35;
+}
+.oc-message .message-content p { margin: 2px 0; }
+.oc-message .message-content p:first-child { margin-top: 0; }
+.oc-message .message-content p:last-child { margin-bottom: 0; }
+.oc-message.emote .message-content { font-style: italic; }
+.oc-message.whisper { border-color: var(--oc-verdigris); box-shadow: inset 3px 0 0 var(--oc-verdigris), 0 1px 3px rgba(0, 0, 0, 0.4); }
+.oc-message.whisper .message-content { border-top-color: var(--oc-verdigris); }
+.oc-message.blind { border-color: var(--oc-oxblood); box-shadow: inset 3px 0 0 var(--oc-oxblood), 0 1px 3px rgba(0, 0, 0, 0.4); }
+.oc-message.blind .message-content { border-top-color: var(--oc-oxblood); }
+.oc-message .oc-card { margin: 0; }
+
+/* Links and inline rolls in a slip: typed tabs. */
+.oc-message a.content-link,
+.oc-message a.inline-roll {
+  padding: 0 4px;
+  border: 1px solid var(--oc-rule);
+  border-radius: 1px;
+  background: var(--oc-paper-2);
+  color: var(--oc-ink);
+  font-family: var(--oc-type);
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+.oc-message a.content-link i,
+.oc-message a.inline-roll i { color: var(--oc-brass-dk); }
+.oc-message a.content-link:hover,
+.oc-message a.inline-roll:hover { border-color: var(--oc-brass-dk); color: var(--oc-oxblood); text-shadow: none; }
+
+/* A plain roll: the total typed large, the formula beside it. */
+.oc-roll { gap: 2px; }
+.oc-roll .oc-roll__flavor { color: var(--oc-oxblood); font-family: var(--oc-type); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; }
+.oc-roll .oc-roll__result {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  order: 2;
+  padding: 3px 0;
+  border-top: 1px dotted var(--oc-rule);
+  border-bottom: 1px dotted var(--oc-rule);
+}
+.oc-roll .oc-roll__total {
+  flex: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--oc-ink);
+  font-family: var(--oc-type);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1;
+  text-align: left;
+}
+.oc-roll .oc-roll__formula {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--oc-ink-soft);
+  font-family: var(--oc-type);
+  font-size: 12px;
+  text-align: left;
+  word-break: break-all;
+}
+.oc-roll .dice-tooltip { order: 3; }
+.oc-roll .dice-tooltip .tooltip-part { margin-top: 4px; }
+.oc-roll .dice-tooltip .part-header { color: var(--oc-ink-soft); font-family: var(--oc-type); font-size: 11.5px; }
+.oc-roll .dice-tooltip .part-header .part-total { border: 1px solid var(--oc-rule); border-radius: 1px; background: var(--oc-paper-2); box-shadow: none; color: var(--oc-ink); }
+.oc-roll .dice-tooltip .dice-rolls .roll { color: var(--oc-ink); font-family: var(--oc-type); filter: sepia(0.6); }
+.oc-roll .dice-tooltip .dice-rolls .roll.max { color: var(--oc-good); }
+.oc-roll .dice-tooltip .dice-rolls .roll.min { color: var(--oc-oxblood); }
+.oc-roll + .oc-roll { margin-top: 6px; }
+
+/* A table drawn: what came up, filed under the table's name. */
+.oc-card--table { border-top-color: var(--oc-verdigris); }
+.oc-message:has(.oc-card--table) .message-header .flavor-text { display: none; }
+.oc-card__dice { margin: 6px 0 2px; }
+.oc-card__dice .oc-roll__total { font-size: 26px; }
+.oc-card__results { margin: 6px 0 0; padding: 0; list-style: none; }
+.oc-card__results li { display: flex; align-items: flex-start; gap: 8px; padding: 4px 0; border-bottom: 1px dotted var(--oc-rule); }
+.oc-card__results li:last-child { border-bottom: 0; }
+.oc-card__results img { flex: 0 0 26px; width: 26px; height: 26px; margin: 0; border: 0; object-fit: contain; filter: sepia(0.5); }
+.oc-card__result { flex: 1; min-width: 0; }
+.oc-card__result .name { color: var(--oc-ink); font-family: var(--oc-type); font-size: 15px; font-weight: 400; }
+.oc-card__result .description { font-size: 13.5px; line-height: 1.3; }
+.oc-card__result .description p { margin: 3px 0 0; }
+.oc-card__description { margin-top: 6px; padding-top: 4px; border-top: 1px dotted var(--oc-rule); color: var(--oc-ink-soft); font-size: 12.5px; font-style: italic; line-height: 1.3; }
+.oc-card__description p { margin: 0; }
+
 .oc-card {
   margin: 2px 0;
   padding: 8px 10px 8px;

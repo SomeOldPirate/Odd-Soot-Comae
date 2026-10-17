@@ -7,7 +7,7 @@
 
 import C, { SYSTEM_ID } from "../config.mjs";
 import * as R from "../rules.mjs";
-import { spendLuck } from "../dice/roll.mjs";
+import { spendLuck, rollFormula } from "../dice/roll.mjs";
 import { postDamageRoll, onSpellDropped } from "../dice/magic.mjs";
 import { tagData, canRollDrive, canRollCodeBlock } from "../documents/actor.mjs";
 import { t, esc } from "../helpers/chat.mjs";
@@ -200,7 +200,7 @@ class ComaeActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     if ( target.dataset.random ) {
       const roll = await new Roll("1d12").evaluate();
       const key = Object.entries(C.tags).find(([, d]) => d.d12 === roll.total)?.[0];
-      await roll.toMessage({ speaker: ChatMessage.getSpeaker({ actor: this.document }), flavor: t("COMAE.Tag.rolled", { name: C.tags[key].label }) });
+      await rollFormula(roll, { actor: this.document, kicker: t("COMAE.Tag.rollHint"), title: t("COMAE.Tag.rolled", { name: C.tags[key].label }) });
       if ( this.document.system.tags.some(tg => tg.system.key === key) ) return ui.notifications.info(t("COMAE.Sheet.haveIt", { name: C.tags[key].label }));
       return this.document.createEmbeddedDocuments("Item", [tagData(key)]);
     }

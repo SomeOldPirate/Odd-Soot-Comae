@@ -126,9 +126,11 @@ export function latest(message) {
  * @param {HTMLElement} html
  */
 export function onRenderChatMessage(message, html) {
-  const card = html.querySelector?.(".oc-card");
-  if ( !card ) return;
+  if ( !html.classList ) return;
   html.classList.add("oc-message");
+  const card = html.querySelector(".oc-card");
+  if ( !card ) return;
+  html.classList.add("oc-message--card");
   const flags = message.flags?.[SYSTEM_ID] ?? {};
   const actor = flags.actorUuid ? fromUuidSync(flags.actorUuid) : null;
   const superseded = answered(message.id, "luck") || answered(message.id, "repay");

@@ -1,0 +1,18 @@
+<div class="oc-card oc-card--table table-draw" data-table-id="{{table.id}}">
+  <header class="oc-card__head">
+    <div class="oc-card__titles">
+      <span class="oc-card__kicker">{{localize "COMAE.Card.kind.table"}}</span>
+      <h3 class="oc-card__title">{{table.name}}</h3>
+    </div>
+  </header>
+  {{#if rollHTML}}<div class="oc-card__dice">{{{rollHTML}}}</div>{{/if}}
+  <ul class="oc-card__results table-results">
+    {{#each results as |result|}}
+    <li data-result-id="{{result._id}}">
+      {{#if result.icon}}<img src="{{result.icon}}" alt="">{{/if}}
+      <div class="oc-card__result">{{{result.details}}}</div>
+    </li>
+    {{/each}}
+  </ul>
+  {{#if description}}<div class="oc-card__description table-description">{{{description}}}</div>{{/if}}
+</div>
