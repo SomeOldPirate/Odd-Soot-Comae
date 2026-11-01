@@ -24,6 +24,7 @@ import ConflictBoard, { registerBoardHooks } from "./apps/conflict-board.mjs";
 import * as Chat from "./helpers/chat.mjs";
 import * as Dice from "./dice/roll.mjs";
 import * as Magic from "./dice/magic.mjs";
+import { registerDiceSoNice } from "./dice/dice-so-nice.mjs";
 import * as Conflict from "./conflict.mjs";
 import { migrateWorld } from "./migration.mjs";
 import { registerEnrichers } from "./helpers/enrichers.mjs";
@@ -112,6 +113,7 @@ Hooks.once("init", () => {
   Handlebars.registerHelper("ocSigned", n => (Number(n) > 0 ? `+${n}` : String(n)));
 
   registerSettings();
+  registerDiceSoNice();
   registerBoardHooks();
   registerEnrichers();
 });
@@ -217,17 +219,6 @@ Hooks.on("createItem", (item, options, userId) => {
   if ( actor.system.creation ) return;
   const start = actor.system.pools.pow.max * 2;
   if ( actor.system.skills.magic.value < start ) actor.update({ "system.skills.magic.value": start });
-});
-
-/* -------------------------------------------- */
-/*  Dice So Nice                                */
-/* -------------------------------------------- */
-
-Hooks.once("diceSoNiceReady", dice3d => {
-  dice3d.addColorset({
-    name: "oddsoot-comae", description: "Odd Soot (Comae)", category: "Odd Soot",
-    foreground: "#efe6d0", background: "#16120f", outline: "#3b2f25", edge: "#0b0908", texture: "none", material: "metal"
-  }, "default");
 });
 
 /* -------------------------------------------- */

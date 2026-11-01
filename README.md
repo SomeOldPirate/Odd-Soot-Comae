@@ -71,7 +71,19 @@ entry of `peculiarities` its d100 rows as `low` and `high`.
 ## Settings
 
 Lenses (on) · Halved pools are Hard, Odd Soot's rule (off) · Negative Luck (off) · Lethal end game
-(on) · Casting past empty: push POW or pay from BODY · Corruption, a house rule (off).
+(on) · Casting past empty: push POW or pay from BODY · Corruption, a house rule (off) · Odd Soot dice
+for everyone (on) · Themed dice for spells and The Soot (on). The two dice settings show only with
+Dice So Nice active.
+
+## Dice So Nice
+
+With [Dice So Nice](https://foundryvtt.com/packages/dice-so-nice) active, the system adds an *Odd Soot*
+dice set (Limelight numerals) and four colour sets: **Bakelite & Brass**, **Soot**, **Enamel & Ink**
+and **Luminarian**. Bakelite & Brass on the Odd Soot dice is the default for everyone: players who
+have never changed their dice get it straight away, and with *Odd Soot dice for everyone* on (the
+default) players who have are switched once, the first time they load the world. After that, each
+player's own choice stands. With *Themed dice for spells and The Soot* on, spell rolls throw
+Luminarian dice and Soot rolls throw Soot dice, whatever the player has chosen.
 
 ## Readings
 

@@ -594,6 +594,14 @@
         "hint": "When POW runs short.",
         "push": "Push POW below zero",
         "body": "Pay the rest from BODY"
+      },
+      "diceForAll": {
+        "name": "Odd Soot dice for everyone",
+        "hint": "With Dice So Nice, switch each player to the Odd Soot dice the first time they load this world. They can still choose other dice afterwards."
+      },
+      "diceThemed": {
+        "name": "Themed dice for spells and The Soot",
+        "hint": "With Dice So Nice, spell rolls throw the Luminarian dice and Soot rolls the Soot dice, whatever each player has chosen."
       }
     },
     "Gear": {
