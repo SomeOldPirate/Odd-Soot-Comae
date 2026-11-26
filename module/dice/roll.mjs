@@ -10,7 +10,9 @@ import { promptRoll } from "./roll-dialog.mjs";
 
 /**
  * What each kind of roll adds to its card, and does once rolled (or rolled again by Luck).
- * @type {Record<string, {rows?: Function, buttons?: Function, after?: Function, opposable?: boolean}>}
+ * canReissue(message) may refuse Luck on a roll that can no longer be changed (a conflict round
+ * already resolved).
+ * @type {Record<string, {rows?: Function, buttons?: Function, after?: Function, opposable?: boolean, canReissue?: Function}>}
  */
 export const ROLL_KINDS = {};
 
@@ -178,9 +180,19 @@ async function reissue(message, { value, roll = null, how, kind = "luck", forceL
   });
 }
 
+/** May Luck still change this roll? Checked before any Luck is spent. */
+function mayReissue(message) {
+  const def = ROLL_KINDS[message.flags[SYSTEM_ID].kind];
+  if ( def?.canReissue && !def.canReissue(message) ) {
+    ui.notifications.warn(t("COMAE.Luck.tooLate"));
+    return false;
+  }
+  return true;
+}
+
 registerCardAction("luckFlip", async message => {
   const actor = await fromUuid(message.flags[SYSTEM_ID].actorUuid);
-  if ( !actor || !(await spendLuck(actor)) ) return;
+  if ( !actor || !mayReissue(message) || !(await spendLuck(actor)) ) return;
   const old = message.flags[SYSTEM_ID].result.value;
   const value = R.flipDigits(old);
   return reissue(message, { value, how: t("COMAE.Luck.flipped", { from: d100Text(old), to: d100Text(value) }) });
@@ -189,7 +201,7 @@ registerCardAction("luckFlip", async message => {
 /** Borrowed Luck comes back: a success turned to failure restores one point. */
 registerCardAction("luckRepay", async message => {
   const actor = await fromUuid(message.flags[SYSTEM_ID].actorUuid);
-  if ( !actor || (actor.system.luck.value >= 0) ) return;
+  if ( !actor || (actor.system.luck.value >= 0) || !mayReissue(message) ) return;
   await actor.update({ "system.luck.value": actor.system.luck.value + 1 });
   const value = message.flags[SYSTEM_ID].result.value;
   return reissue(message, { value, kind: "repay", forceLevel: 1, how: t("COMAE.Luck.repaid") });

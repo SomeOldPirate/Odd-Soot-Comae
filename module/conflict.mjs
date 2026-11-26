@@ -292,11 +292,21 @@ export async function rollParticipant(combat, combatant) {
 
 registerRollKind("conflict", {
   opposable: false,
+  /** Luck may change a conflict roll only while its round is still open and the roll still stands. */
+  canReissue(message) {
+    const context = message.flags[SYSTEM_ID]?.context ?? {};
+    const combat = game.combats.get(context.combatId);
+    const c = combat?.combatants.get(context.combatantId);
+    if ( !c ) return false;
+    return (combat.round === context.round) && (stateOf(c).roll?.messageId === message.id);
+  },
   /** Write the result onto the participant (again, if Luck changed it); a spell costs its POW. */
   async after(message, result, context, actor, o) {
     const combat = game.combats.get(context.combatId);
     const c = combat?.combatants.get(context.combatantId);
     if ( !c?.isOwner ) return;
+    // A roll from a round already resolved never lands in the next one.
+    if ( combat.round !== context.round ) return;
     const st = stateOf(c);
     await c.setFlag(SYSTEM_ID, "cp", { ...st, roll: {
       value: result.value, level: result.level, target: result.target, title: message.flags[SYSTEM_ID].input.title,

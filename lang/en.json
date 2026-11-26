@@ -122,6 +122,7 @@
       "none": "{name} has no Luck to spend.",
       "borrowed": "{name} is borrowing Luck.",
       "once": "Luck has already been used on this roll.",
+      "tooLate": "This conflict round has already been resolved, so Luck can no longer change this roll. Spend Luck before the Game Master resolves the round.",
       "reduce": "Luck: only 1",
       "reduceFor": "Luck: only 1 for {name}",
       "reduced": "{name} spends Luck: only 1 {pool} lost.",
